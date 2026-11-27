@@ -600,9 +600,11 @@ describe("bar checking", () => {
     expect(meter("1 2\n3 4")).toEqual(["bar-length 3:4", "bar-length 4:4"]);
   });
 
-  it("ignores empty bars, and bars with only chords", () => {
+  it("ignores empty bars (a leading or doubled bar line) but not bars with only a chord", () => {
     expect(meter("| 1 2 3 4 | | 5 6 7 8 |")).toEqual([]);
-    expect(meter("[I]\n1 2 3 4 | [V7]\n5 6 7 8")).toEqual([]);
+    expect(meter("[I]\n1 2 3 4")).toEqual(["bar-length 3:4"]);
+    expect(meter("1 2 3 4 | [I] | 5 6 7 8")).toEqual(["bar-length 3:15"]);
+    expect(meter("[I] 1 2 3 4 | [V7] 5 6 7 8 | [-]")).toEqual(["bar-length 3:33"]);
   });
 
   it("lets {if}, {else} and {end} close a bar", () => {
