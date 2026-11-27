@@ -150,7 +150,7 @@ A duration is `:` followed by a positive integer or a fraction. Rules:
 
 #### Syllables
 
-A syllable is one to 16 letters: any Unicode letter, with its combining marks. `ma`, `ng`, `brr` and `mm` are syllables. The syllable text is kept as written. A glide takes one syllable for the whole glide.
+A syllable is one to 16 letters, counted in code points: any Unicode letter, with its combining marks, each mark counting as one. `ma`, `ng`, `brr` and `mm` are syllables. The syllable text is kept as written. A glide takes one syllable for the whole glide.
 
 #### Rests
 
@@ -180,7 +180,7 @@ A chord is a Roman numeral in brackets. The numeral names the scale degree of th
 [I] 1 3 5 3 [V7] 2 4 5 [-] r
 ```
 
-**In `{cue: …}`**, the chord is what plays before each repetition. Its duration is how long it sounds and defaults to 1 beat. `[-]` is not allowed there. Without a `{cue}` directive nothing plays before a repetition and the `cue` setting has no effect.
+**In `{cue: …}`**, the chord is what plays before each repetition. Its duration is how long it sounds and defaults to 1 beat. `[-]` is not allowed there and is an `invalid-chord` error. Without a `{cue}` directive nothing plays before a repetition and the `cue` setting has no effect.
 
 ### Bar lines
 
@@ -266,6 +266,8 @@ Each setting resolves on its own: the highest layer that sets it wins, and a lat
 
 A setting that no layer sets takes the built-in value in the table above. A layer that sets `voice` sets `start` and `end` at that layer. A value from the saved range, the URL or the panel that does not fit the syntax above is ignored, and the layer below it applies. In `{defaults}` the same value is an error.
 
+`start` must not be above `end`. Layers are applied from the lowest to the highest, a layer's `start` and `end` together. If applying a layer would leave `start` above `end`, that layer's `start` and `end` are ignored and the result of the layers below stays. So a panel value of `D4` for `start` is ignored while `end` is `C4`, and the singer has to move `end` first or set both. In `{defaults}` the same case is a `range-order` error.
+
 For example, with `{defaults: start=C3 end=G4 tempo=100}`, a saved range of `A2` to `E4` and a URL of `&tempo=90`, the run uses `A2` to `E4` at tempo 90. If the singer then drags the tempo slider to 80, the run is `A2` to `E4` at 80.
 
 ## Bar checking
@@ -344,7 +346,7 @@ The value of a directive is the text between the first `:` and the first unescap
 ### Pattern item grammar
 
 ```ebnf
-pattern-line = { blank } [ item { gap item } ] { blank } eol ;
+pattern-line = [ item { gap item } ] ;
 gap          = blank { blank } | "" ;             (* "" only next to a bar line *)
 
 item         = note | rest | chord | bar | if | else | end ;
@@ -353,7 +355,7 @@ note         = pitch [ "~" pitch ] [ "/" syllable ] [ duration ] ;
 pitch        = [ "b" | "#" ] int [ octave ] ;
 octave       = "," [ "," [ "," ] ] | "'" [ "'" [ "'" ] ] ;
 duration     = ":" int [ "/" int ] ;
-syllable     = letter { letter } ;                (* 1 to 16 characters *)
+syllable     = letter { letter } ;                (* 1 to 16 code points *)
 
 rest         = "r" [ duration ] ;
 
@@ -372,8 +374,8 @@ Rules the grammar cannot show:
 
 - **Longest run.** An `int` is the longest run of digits. A `numeral` is the longest run of `I V` or of `i v`, and `quality` starts at the first character that run cannot take.
 - **Slash after a duration.** In `:` `int` `/`, the slash continues the duration only if a digit follows. Otherwise the duration ends and the next character is checked as a separator.
-- **Separation.** After an item other than `|`, the next character is a blank, `|` or the end of the line. Anything else is an `expected-blank` error, which also covers `1:2/ma`, `5,3` and `1b3`.
-- **Meaning checks on tokens.** `int` in a pitch is 1 to 10 with no leading zero. A numeral is one of the seven forms in the chord table. `maj7` needs an upper-case numeral and `dim` a lower-case one. A duration is a positive integer, or `int "/" int` with a denominator of 2 or 4, and its value is at most 64 beats. A syllable is at most 16 characters.
+- **Separation.** After an item other than `|`, the next character is a blank, `|` or the end of the line. Anything else is an `expected-blank` error, which also covers `1:2/ma`, `5,3`, `1b3` and `[I]1`. Text inside the brackets is the chord's own business: `[I x]` is `invalid-chord`, `[I]x` is `expected-blank`.
+- **Meaning checks on tokens.** `int` in a pitch is 1 to 10 with no leading zero. A numeral is one of the seven forms in the chord table. `maj7` needs an upper-case numeral and `dim` a lower-case one. A duration is a positive integer, or `int "/" int` with a denominator of 2 or 4, and its value is at most 64 beats. A syllable is at most 16 code points.
 - **Atom starts.** An item starts with `b`, `#`, a digit, `r`, `[`, `|` or `{`. `{` must be `{if …}`, `{else}` or `{end}`; any other directive in the middle of a line is a `misplaced-directive` error.
 
 ### File structure
@@ -396,56 +398,65 @@ A hand-written parser follows this order:
 1. A directive line: read the name, check it against the table, check the optional language suffix, read the value up to `}`, then parse the value with the grammar for that name.
 1. A pattern line: read items left to right with one character of lookahead. Dispatch on the first character: `b` `#` digit → `note`; `r` → `rest`; `[` → `chord`; `|` → `bar`; `{` → `if`, `else` or `end`.
 1. Build the `{if}` structure with a stack of depth at most 1.
-1. Only when no syntax error was found, run the file-level checks in the next section, in the order given.
+1. Only when no syntax error was found, run every file-level check in the next section and report all violations.
 
 ## Errors
 
 Every error carries `line`, `column`, a stable `code` and a human `message`. Tests compare `code`, `line` and `column`; the message wording is free.
 
-A parser should recover at the next line and report at most one error per line, so the editor can show every problem. A file with any error has no AST. File-level errors are reported only when there are no syntax errors, because they depend on the whole file.
+A parser reports every error it finds, sorted by line and then column, so the editor and `vex lint` can show every problem. For syntax errors it recovers at the next line and reports at most one per line. A file with any error has no AST. File-level errors are reported only when there are no syntax errors, because they depend on the whole file.
 
 The column is the first character the grammar cannot accept. At the end of a line it is the column just past the last character. The tables below name the position for each code.
 
 ### Syntax errors
 
-| Code                       | Condition                                                                                                                                                                                                                                         | Position                                  |
-| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
-| `file-too-large`           | More than 65 536 bytes                                                                                                                                                                                                                            | 1:1                                       |
-| `unexpected-character`     | A character that no rule accepts here: a lone `\r`, a control character, a stray `}`, or text after a directive's `}`                                                                                                                             | That character                            |
-| `unterminated`             | A `{` or `[` with no closing `}` or `]` on its line                                                                                                                                                                                               | The opening character                     |
-| `unknown-directive`        | A name not in the directive table, including reserved names (see [Reserved](#reserved))                                                                                                                                                           | Start of the name                         |
-| `misplaced-directive`      | A directive in the middle of a pattern line                                                                                                                                                                                                       | The `{`                                   |
-| `invalid-translation`      | A `.lang` on a directive that is not `title` or `description`, a malformed code, or `.en`                                                                                                                                                         | The `.`                                   |
-| `missing-value`            | No `:`, or an empty value                                                                                                                                                                                                                         | Where the `:` or the value was expected   |
-| `invalid-value`            | A value that does not match its directive's syntax, including a bad escape, a bad note name, a setting outside its range, a parameter list with one value or a repeated value, a range that does not increase, and a scale outside the scale list | First character the value grammar rejects |
-| `expected-blank`           | An item is followed by something other than a blank, `\|` or the end of the line                                                                                                                                                                  | That character                            |
-| `invalid-degree`           | A degree that is not 1 to 10, or has a leading zero                                                                                                                                                                                               | Start of the number                       |
-| `invalid-duration`         | A zero numerator, a denominator other than 2 or 4, or a value over 64 beats                                                                                                                                                                       | The `:`                                   |
-| `invalid-syllable`         | A `/` not followed by a letter, or a syllable over 16 characters                                                                                                                                                                                  | The character after the `/`               |
-| `invalid-chord`            | Anything in brackets that is not a chord: an empty `[]`, a numeral that is not one of the seven forms, a suffix that is not allowed or does not match the case, `[-]` with a duration, or text after the chord                                    | The first character after `[`             |
-| `invalid-conditional`      | A malformed `{if}`, `{else}` or `{end}`, including `{else if …}` and operators other than `=`                                                                                                                                                     | The offending character                   |
-| `nested-if`                | `IF` inside an open block                                                                                                                                                                                                                         | The inner `{if`                           |
-| `unmatched-conditional`    | `ELSE` or `END` with no open block, or a second `ELSE`                                                                                                                                                                                            | The `{` of that token                     |
-| `directive-in-conditional` | A directive line inside an open block                                                                                                                                                                                                             | The `{`                                   |
-| `unclosed-if`              | The file ends with a block still open                                                                                                                                                                                                             | The `{` of the `{if`                      |
-| `too-many-items`           | More than 1 024 pattern items                                                                                                                                                                                                                     | The 1 025th item                          |
+| Code                       | Condition                                                                                                                                                                                                                                         | Position                                |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------- |
+| `file-too-large`           | More than 65 536 bytes                                                                                                                                                                                                                            | 1:1                                     |
+| `unexpected-character`     | A character that no rule accepts here: a lone `\r`, a control character, a stray `}`, or text after a directive's `}`                                                                                                                             | That character                          |
+| `unterminated`             | A `{` or `[` with no closing `}` or `]` on its line                                                                                                                                                                                               | The opening character                   |
+| `unknown-directive`        | A name not in the directive table, including reserved names (see [Reserved](#reserved))                                                                                                                                                           | Start of the name                       |
+| `misplaced-directive`      | A directive in the middle of a pattern line                                                                                                                                                                                                       | The `{`                                 |
+| `invalid-translation`      | A `.lang` on a directive that is not `title` or `description`, a malformed code, or `.en`                                                                                                                                                         | The `.`                                 |
+| `missing-value`            | No `:`, or an empty value                                                                                                                                                                                                                         | Where the `:` or the value was expected |
+| `invalid-value`            | A value that does not match its directive's syntax, including a bad escape, a bad note name, a setting outside its range, a parameter list with one value or a repeated value, a range that does not increase, and a scale outside the scale list | See below the table                     |
+| `expected-blank`           | An item is followed by something other than a blank, `\|` or the end of the line                                                                                                                                                                  | That character                          |
+| `invalid-degree`           | A degree that is not 1 to 10, or has a leading zero                                                                                                                                                                                               | Start of the number                     |
+| `invalid-duration`         | A zero numerator, a denominator other than 2 or 4, or a value over 64 beats                                                                                                                                                                       | The `:`                                 |
+| `invalid-syllable`         | A `/` not followed by a letter, or a syllable over 16 code points                                                                                                                                                                                 | The character after the `/`             |
+| `invalid-chord`            | Anything in brackets that is not a chord: an empty `[]`, a numeral that is not one of the seven forms, a suffix that is not allowed or does not match the case, `[-]` with a duration or as a `{cue}`, or text between the chord and the `]`      | The first character after `[`           |
+| `invalid-conditional`      | A malformed `{if}`, `{else}` or `{end}`, including `{else if …}` and operators other than `=`                                                                                                                                                     | The offending character                 |
+| `nested-if`                | `IF` inside an open block                                                                                                                                                                                                                         | The inner `{if`                         |
+| `unmatched-conditional`    | `ELSE` or `END` with no open block, or a second `ELSE`                                                                                                                                                                                            | The `{` of that token                   |
+| `directive-in-conditional` | A directive line inside an open block                                                                                                                                                                                                             | The `{`                                 |
+| `unclosed-if`              | The file ends with a block still open                                                                                                                                                                                                             | The `{` of the `{if`                    |
+| `too-many-items`           | More than 1 024 pattern items                                                                                                                                                                                                                     | The 1 025th item                        |
+
+**Position of `invalid-value`.** If the value does not match the grammar, the column is the first character the grammar rejects: `{meter: 4/4}` is rejected at the `/`, and a one-value list such as `{param: a = x}` at the position just past the value. If the value is well formed but not allowed, the column is the first character of the offending value or list item:
+
+- `{defaults: tempo=500}` at the `500`, and `{meter: 17}` at the `17`.
+- `{param: scale = major | foo}` at the `foo`.
+- `{param: a = x | x}` at the second `x`.
+- `{param: speed = 3..1}` at the second number.
 
 ### File-level errors
 
-These run in this order, and only when the file has no syntax error.
+These run only when the file has no syntax error. Every check runs even if an earlier one failed, and every violation is reported. When a name is declared twice, later checks use its first declaration. Errors at the same position follow the order of this table.
 
-| Code                     | Condition                                                                                               | Position                                                                             |
-| ------------------------ | ------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
-| `missing-title`          | No `{title}`                                                                                            | 1:1                                                                                  |
-| `missing-pattern`        | No note and no rest in the file                                                                         | 1:1                                                                                  |
-| `duplicate-directive`    | A directive, translation or `{param}` name that appears twice, or a `{defaults}` key that appears twice | The `{` of the second directive, or the second key                                   |
-| `reserved-param-name`    | A parameter named like a setting                                                                        | The parameter name                                                                   |
-| `conflicting-directives` | `{vowel}` and `{param: vowel}` in one file                                                              | The `{` of the later one                                                             |
-| `unknown-key`            | A `{defaults}` key that is neither a setting nor a declared parameter                                   | The key                                                                              |
-| `invalid-param-value`    | A `{defaults}` pair or an `{if}` whose value the parameter does not allow                               | The value                                                                            |
-| `range-order`            | `{defaults}` has `start` above `end`                                                                    | The `end` key                                                                        |
-| `unknown-param`          | An `{if}` that names an undeclared parameter                                                            | The name                                                                             |
-| `bar-length`             | With `{meter}`, a bar that does not add up to the meter                                                 | The token that ends the bar: `\|`, `{if}`, `{else}`, `{end}`, or the end of the line |
+For example, `{defaults: foo=1 start=G4 end=C4}` gives `unknown-key` at `foo` and `range-order` at `end`.
+
+| Code                     | Condition                                                                                                                                             | Position                                                                             |
+| ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| `missing-title`          | No `{title}`                                                                                                                                          | 1:1                                                                                  |
+| `missing-pattern`        | No note and no rest in the file                                                                                                                       | 1:1                                                                                  |
+| `duplicate-directive`    | A directive, translation or `{param}` name that appears twice, or a `{defaults}` key that appears twice                                               | The `{` of the second directive, or the second key                                   |
+| `reserved-param-name`    | A parameter named like a setting                                                                                                                      | The parameter name                                                                   |
+| `conflicting-directives` | `{vowel}` and `{param: vowel}` in one file                                                                                                            | The `{` of the later one                                                             |
+| `unknown-key`            | A `{defaults}` key that is neither a setting nor a declared parameter                                                                                 | The key                                                                              |
+| `invalid-param-value`    | A `{defaults}` pair or an `{if}` whose value the parameter does not allow                                                                             | The value                                                                            |
+| `range-order`            | `{defaults}` puts `start` above `end`. A lone `start` or `end` is compared with the built-in value of the other. Not checked when `voice` is also set | The `end` key, or the only bound that is set                                         |
+| `unknown-param`          | An `{if}` that names an undeclared parameter                                                                                                          | The name                                                                             |
+| `bar-length`             | With `{meter}`, a bar that does not add up to the meter                                                                                               | The token that ends the bar: `\|`, `{if}`, `{else}`, `{end}`, or the end of the line |
 
 ## Reserved
 
@@ -503,6 +514,7 @@ The directive lines of the four sample files and of the plan examples are valid 
 | `[I] 1:0`                         | `invalid-duration` at 1:6    | A duration is positive                                         |
 | `1 2 3 11`                        | `invalid-degree` at 1:7      | Degrees stop at 10                                             |
 | `1:2/ma`                          | `expected-blank` at 1:4      | The syllable goes before the duration                          |
+| `[I]1 3`                          | `expected-blank` at 1:4      | A chord is followed by a blank, `\|` or the end of the line    |
 | `1/2`                             | `invalid-syllable` at 1:3    | `/` after a pitch starts a syllable; the fraction needs `:1/2` |
 | `{if a=1} {if b=2} 1 {end} {end}` | `nested-if` at 1:10          | One level only                                                 |
 | `{title.en: Arpeggio}`            | `invalid-translation` at 1:7 | The plain directive is the English text                        |
