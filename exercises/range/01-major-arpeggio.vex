@@ -1,0 +1,12 @@
+{title: Major arpeggio}
+{description: Warm up the middle voice on an open vowel}
+{focus: range, warm-up}
+{technique: legato}
+{level: beginner}
+
+{defaults: start=C3 end=G4 tempo=100 step=+1 direction=up-down}
+{param: scale = major | minor}
+{vowel: ah}
+
+{cue: [I:2]}
+[I] 1 3 5 3 | 1:2 r:2

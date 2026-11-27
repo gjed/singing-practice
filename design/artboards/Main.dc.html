@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vocalizzi — exercise library</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&amp;family=Special+Elite&amp;display=swap">
+<style>
+body{margin:0;background:#e9e2d3}
+a{color:#8c2f39}a:hover{color:#2a1f1a}
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #e9e2d3; color: #2a1f1a; font: 400 15px/1.5 'Courier Prime', 'Courier New', monospace; padding: 30px 16px">
+<div style="max-width: 1120px; margin: 0 auto; background: #faf6ee; border: 1.5px solid #2a1f1a; box-shadow: 0 20px 44px rgba(42, 31, 26, 0.22); overflow: hidden">
+
+  <header style="background: #faf6ee; border-bottom: 1.5px solid #2a1f1a; padding: 11px 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap">
+    <a href="Main.dc.html" style="display: flex; align-items: baseline; gap: 9px; text-decoration: none">
+      <span style="font: 400 18px/1 'Special Elite', 'Courier Prime', monospace; color: #2a1f1a">Vocalizzi</span>
+      <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8c2f39">vocal exercises</span>
+    </a>
+    <div style="display: flex; align-items: center; gap: 13px; flex-wrap: wrap">
+      <a href="Editor.dc.html" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b5d52; text-decoration: none; min-height: 24px; display: inline-flex; align-items: center">Editor</a>
+      <a href="Main.dc.html" style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b5d52; text-decoration: none; min-height: 24px; display: inline-flex; align-items: center">My range</a>
+      <nav aria-label="Language" style="display: flex; align-items: center; gap: 5px; font-size: 11px; letter-spacing: 0.12em">
+        <span aria-current="true" style="color: #2a1f1a; border-bottom: 2px solid #8c2f39; padding-bottom: 1px">EN</span>
+        <span aria-hidden="true" style="color: #6b5d52; opacity: 0.5">/</span>
+        <a href="Main.dc.html" lang="it" style="color: #6b5d52; text-decoration: none">IT</a>
+      </nav>
+      <button type="button" aria-pressed="false" style="font: 400 10px 'Courier Prime', monospace; letter-spacing: 0.16em; text-transform: uppercase; padding: 5px 8px; background: transparent; border: 1px solid #ddd3c2; color: #6b5d52; cursor: pointer">Night</button>
+    </div>
+  </header>
+
+  <section style="position: relative; background: #2b2320; padding: 46px 52px 44px; display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; overflow: hidden">
+    <div aria-hidden="true" style="position: absolute; left: 0; right: 0; top: 34px; height: 97px; background: repeating-linear-gradient(to bottom, rgba(243, 236, 226, 0.09) 0 1px, transparent 1px 24px)"></div>
+    <div style="position: relative; display: flex; flex-direction: column; gap: 16px; max-width: 620px">
+      <span style="font-size: 11px; letter-spacing: 0.3em; text-transform: uppercase; color: #f0a3a8">Pick · set your range · sing</span>
+      <h1 style="margin: 0; font: 400 56px/1.02 'Special Elite', 'Courier Prime', monospace; color: #f3ece2">Vocal exercises, set to your voice</h1>
+      <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #d4c8b8; max-width: 52ch">Every exercise is a short text file. Choose one, set where your voice starts and ends, and sing along with the piano.</p>
+    </div>
+    <div style="position: relative; display: flex; flex-direction: column; align-items: flex-end; gap: 14px">
+      <a href="Main.dc.html" style="border: 2px solid #f0a3a8; color: #f0a3a8; font-size: 11.5px; letter-spacing: 0.2em; text-transform: uppercase; padding: 7px 11px; transform: rotate(-2deg); white-space: nowrap; text-decoration: none">Your range · A2 – E4</a>
+      <span style="font-size: 11px; letter-spacing: 0.18em; color: #a89a8a">v1.4.0</span>
+    </div>
+  </section>
+
+  <section aria-label="Filters" style="padding: 26px 52px; display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; border-bottom: 1.5px solid #2a1f1a">
+    <label style="display: flex; align-items: center; gap: 9px; border: 1.5px solid #2a1f1a; background: #ffffff; padding: 10px 13px; width: 320px; max-width: 100%">
+      <span aria-hidden="true" style="font-size: 13px; color: #8c2f39">/</span>
+      <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%)">Search exercises</span>
+      <input type="search" placeholder="search exercises" style="flex: 1; min-width: 0; border: none; outline: none; background: transparent; font: 15px 'Courier Prime', monospace; color: #2a1f1a">
+    </label>
+    <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap">
+      <div role="group" aria-label="Category" style="display: flex; gap: 7px; flex-wrap: wrap">
+        <sc-for list="{{cats}}" as="c" hint-placeholder-count="6">
+          <button type="button" aria-pressed="{{c.pressed}}" onClick="{{c.pick}}" style="{{c.style}}">{{c.label}}</button>
+        </sc-for>
+      </div>
+      <span style="font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #6b5d52">{{count}} exercises</span>
+    </div>
+  </section>
+
+  <section aria-label="Exercises" style="padding: 30px 52px 36px; display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 34px 30px">
+    <sc-for list="{{shown}}" as="ex" hint-placeholder-count="8">
+      <div style="position: relative; display: flex; flex-direction: column; gap: 11px; min-width: 0">
+        <a href="Player.dc.html" style="display: block; border: 1.5px solid #2a1f1a; box-shadow: 5px 5px 0 #8c2f39; background: #ffffff; text-decoration: none">
+          <svg viewBox="0 0 100 100" width="100%" role="img" aria-label="{{ex.contourLabel}}" style="display: block; aspect-ratio: 1">
+            <g stroke="#ddd3c2" stroke-width="0.6">
+              <line x1="6" y1="30" x2="94" y2="30"></line><line x1="6" y1="40" x2="94" y2="40"></line><line x1="6" y1="50" x2="94" y2="50"></line><line x1="6" y1="60" x2="94" y2="60"></line><line x1="6" y1="70" x2="94" y2="70"></line>
+            </g>
+            <path d="{{ex.path}}" fill="none" stroke="{{ex.color}}" stroke-width="2.6" stroke-linecap="square" stroke-linejoin="miter"></path>
+            <text x="8" y="92" font-family="Courier Prime, monospace" font-size="6.5" fill="#6b5d52">{{ex.pattern}}</text>
+          </svg>
+        </a>
+        <span style="font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: {{ex.color}}">{{ex.cat}} · {{ex.level}}</span>
+        <span style="font-size: 16.5px; font-weight: 700; line-height: 1.22; color: #2a1f1a">{{ex.title}}</span>
+        <span style="font-size: 12.5px; line-height: 1.45; color: #6b5d52">{{ex.desc}}</span>
+        <span style="display: flex; align-items: center; gap: 10px; margin-top: auto; padding-top: 2px; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase">
+          <a href="Player.dc.html" style="background: {{ex.color}}; color: #faf6ee; padding: 3px 7px; min-height: 22px; display: inline-flex; align-items: center; text-decoration: none">Sing ▸</a>
+          <span style="color: #6b5d52">{{ex.tempo}} bpm</span>
+        </span>
+      </div>
+    </sc-for>
+  </section>
+
+  <footer style="border-top: 1.5px solid #2a1f1a; margin: 0 52px; padding: 16px 0 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; font-size: 11px; letter-spacing: 0.1em; color: #6b5d52">
+    <span><a href="https://github.com/gjed" style="color: #6b5d52">Source</a> · <a href="Main.dc.html" style="color: #6b5d52">Credits</a> · v1.4.0</span>
+    <a href="https://github.com/gjed" style="display: inline-flex; align-items: center; gap: 8px; color: #6b5d52; text-decoration: none">made by <img src="../../brand/gjed-mark.svg" alt="" style="height: 24px; width: auto"><span style="color: #2a1f1a">gjed</span></a>
+  </footer>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1280,"height":1240}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.state = { cat: 'All' }; }
+  contour(notes, glide) {
+    const total = notes.reduce((s, n) => s + n[1], 0), w = 84 / total;
+    const y = d => 74 - (d - 1) * 6;
+    let x = 8, d = '';
+    notes.forEach((n, i) => {
+      const x2 = x + n[1] * w;
+      d += (i === 0 ? 'M' : 'L') + x.toFixed(1) + ' ' + y(n[0]).toFixed(1);
+      if (!glide) d += 'L' + x2.toFixed(1) + ' ' + y(n[0]).toFixed(1);
+      x = x2;
+    });
+    return d;
+  }
+  renderVals() {
+    const col = { 'Warm-up': '#a14a0c', 'Range': '#2f5fa8', 'Agility': '#2e7a4c', 'Intervals': '#7a4a9c', 'Breath': '#0f7380' };
+    const all = [
+      { cat: 'Warm-up', title: 'Lip trill', level: 'Beginner', tempo: 100, pattern: '1 2 3 4 5 4 3 2 1:2', desc: 'Loose lips on “brr”, steady air through the run.', n: [[1,1],[2,1],[3,1],[4,1],[5,1],[4,1],[3,1],[2,1],[1,2]] },
+      { cat: 'Warm-up', title: 'Siren', level: 'Beginner', tempo: 60, pattern: '1~8:4 8~1:4', desc: 'Glide on “ng” to the top and back.', n: [[1,4],[8,4],[1,0.01]], glide: true },
+      { cat: 'Range', title: 'Major arpeggio', level: 'Beginner', tempo: 100, pattern: '1 3 5 3 1:2', desc: 'Open “ah” through the middle voice.', n: [[1,1],[3,1],[5,1],[3,1],[1,2]] },
+      { cat: 'Range', title: 'Octave arpeggio', level: 'Intermediate', tempo: 96, pattern: '1 3 5 8 5 3 1:2', desc: 'Keep the top note light.', n: [[1,1],[3,1],[5,1],[8,1],[5,1],[3,1],[1,2]] },
+      { cat: 'Agility', title: 'Five-note scale', level: 'Beginner', tempo: 120, pattern: '1 2 3 4 5 4 3 2 1:2', desc: 'One syllable per note: ma me mi mo mu.', n: [[1,1],[2,1],[3,1],[4,1],[5,1],[4,1],[3,1],[2,1],[1,2]] },
+      { cat: 'Agility', title: 'Nine-note scale', level: 'Advanced', tempo: 132, pattern: '1 2 … 9 … 2 1:2', desc: 'One breath for the whole run.', n: [[1,1],[2,1],[3,1],[4,1],[5,1],[6,1],[7,1],[8,1],[9,1],[8,1],[7,1],[6,1],[5,1],[4,1],[3,1],[2,1],[1,2]] },
+      { cat: 'Intervals', title: 'Thirds ladder', level: 'Intermediate', tempo: 100, pattern: '1 3 2 4 3 5 4 2 1:2', desc: 'Hear each third before you sing it.', n: [[1,1],[3,1],[2,1],[4,1],[3,1],[5,1],[4,1],[2,1],[1,2]] },
+      { cat: 'Breath', title: 'Staccato pulse', level: 'Intermediate', tempo: 108, pattern: '1:½ r:½ ×4 · 5:2', desc: 'Short notes from the belly, then hold.', n: [[1,0.5],[1,0.5],[1,0.5],[1,0.5],[5,2]] }
+    ];
+    const names = ['All', 'Warm-up', 'Range', 'Agility', 'Intervals', 'Breath'];
+    const chip = (on) => 'font: 400 10.5px \'Courier Prime\', monospace; letter-spacing: 0.14em; text-transform: uppercase; padding: 7px 10px; min-height: 30px; cursor: pointer; border: 1.5px solid ' + (on ? '#8c2f39' : '#ddd3c2') + '; background: ' + (on ? '#8c2f39' : 'transparent') + '; color: ' + (on ? '#faf6ee' : '#6b5d52');
+    const cats = names.map(l => ({ label: l, pressed: String(this.state.cat === l), style: chip(this.state.cat === l), pick: () => this.setState({ cat: l }) }));
+    const shown = all.filter(e => this.state.cat === 'All' || e.cat === this.state.cat).map(e => ({ ...e, color: col[e.cat], path: this.contour(e.n, e.glide), contourLabel: 'Melodic shape of ' + e.title }));
+    return { cats, shown, count: shown.length };
+  }
+}
+</script>
+</body>
+</html>

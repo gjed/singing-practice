@@ -1,0 +1,13 @@
+title: 10-minute daily warm-up
+title.it: Riscaldamento quotidiano, 10 minuti
+description: Body to head voice in six short exercises.
+level: beginner
+items:
+  - warm-up/lip-trill
+  - warm-up/siren
+  - id: range/major-arpeggio
+    tempo: 90
+    direction: up
+  - agility/five-note-scale
+  - pause: 20s
+  - breath/long-tone
