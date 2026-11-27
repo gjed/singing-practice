@@ -13,12 +13,12 @@ Two goals drive every decision:
 
 Audiences:
 
-| Who | Needs | Touches |
-| --- | --- | --- |
-| Singer | Pick, configure, sing along | Player only |
-| Teacher / choir lead | Create and share exercises | Visual editor, share link |
-| Contributor | Add exercises to the default library | `.vex` files via PR |
-| Maintainer (Marco) | Format, engine, CI | Everything |
+| Who                  | Needs                                | Touches                   |
+| -------------------- | ------------------------------------ | ------------------------- |
+| Singer               | Pick, configure, sing along          | Player only               |
+| Teacher / choir lead | Create and share exercises           | Visual editor, share link |
+| Contributor          | Add exercises to the default library | `.vex` files via PR       |
+| Maintainer (Marco)   | Format, engine, CI                   | Everything                |
 
 Non-goals: pitch detection and scoring, recording. The site is static on GitHub Pages; until optional accounts arrive in M5 (see Accounts), user-made exercises live in share links and the browser.
 
@@ -26,7 +26,7 @@ Non-goals: pitch detection and scoring, recording. The site is static on GitHub 
 
 An exercise is a `.vex` text file: ChordPro-style `{directives}` for metadata and settings, then one or more pattern lines written in scale degrees. Degrees are relative to the current root, so one pattern runs in every key the player steps through.
 
-```
+```text
 {title: Major arpeggio}
 {description: Warm up the middle voice on an open vowel}
 {focus: warm-up, range}
@@ -45,38 +45,38 @@ An exercise is a `.vex` text file: ChordPro-style `{directives}` for metadata an
 
 The file holds two layers. The **pattern** (body lines, `cue`, `param`) is what the exercise is. The **settings** are how a run goes, and they are the same for every exercise, so the player shows one fixed control panel. `{defaults}` only seeds that panel.
 
-| Setting | Meaning | Example |
-| --- | --- | --- |
-| `start`, `end` | Lowest and highest root of the run | `C3`, `G4` |
-| `voice` | Preset that fills `start` and `end` | `soprano`, `tenor` |
-| `tempo` | Beats per minute | `100` |
-| `step` | Semitones between repetitions | `+1`, `+2` |
-| `direction` | Order of roots | `up`, `down`, `up-down`, `down-up` |
-| `cue` | Play the cue before each repetition | on / off |
-| `count-in` | Clicks before the first cue | `1 bar` |
+| Setting        | Meaning                             | Example                            |
+| -------------- | ----------------------------------- | ---------------------------------- |
+| `start`, `end` | Lowest and highest root of the run  | `C3`, `G4`                         |
+| `voice`        | Preset that fills `start` and `end` | `soprano`, `tenor`                 |
+| `tempo`        | Beats per minute                    | `100`                              |
+| `step`         | Semitones between repetitions       | `+1`, `+2`                         |
+| `direction`    | Order of roots                      | `up`, `down`, `up-down`, `down-up` |
+| `cue`          | Play the cue before each repetition | on / off                           |
+| `count-in`     | Clicks before the first cue         | `1 bar`                            |
 
 Values resolve in this order, later wins: exercise `{defaults}`, the singer's saved range, URL parameters, the control panel.
 
 ### Pattern syntax
 
-| Token | Meaning |
-| --- | --- |
-| `1` … `7` | Scale degree in the current scale |
-| `8`, `9`, `10` | Degrees above the octave |
-| `b3`, `#4` | Chromatic alteration of a degree |
-| `5,` / `5'` | Same degree an octave below / above |
-| `:2`, `:1/2` | Duration in beats (default 1) |
-| `r` | Rest |
-| `1~5` | Glide (siren) from one degree to another |
-| `1/ma` | Syllable shown and spoken for that note |
+| Token           | Meaning                                                                    |
+| --------------- | -------------------------------------------------------------------------- |
+| `1` … `7`       | Scale degree in the current scale                                          |
+| `8`, `9`, `10`  | Degrees above the octave                                                   |
+| `b3`, `#4`      | Chromatic alteration of a degree                                           |
+| `5,` / `5'`     | Same degree an octave below / above                                        |
+| `:2`, `:1/2`    | Duration in beats (default 1)                                              |
+| `r`             | Rest                                                                       |
+| `1~5`           | Glide (siren) from one degree to another                                   |
+| `1/ma`          | Syllable shown and spoken for that note                                    |
 | `[I]`, `[V7:2]` | Accompaniment chord as a Roman numeral, held until the next chord or `[-]` |
-| `\|` | Bar line, optional, checked against `{meter}` |
+| `\|`            | Bar line, optional, checked against `{meter}`                              |
 
 ### Parameters
 
 Each `{param: name = …}` becomes a control in the panel, with no code. A list of values renders as a dropdown, a range as a slider:
 
-```
+```text
 {param: scale = major | minor | harmonic-minor | dorian}
 {param: vowel = ah | eh | ee | oh | oo}
 {param: speed = 1..3}
@@ -86,14 +86,14 @@ Pattern lines can switch on a parameter: `{if speed=3} 1 2 3 4 5 4 3 2 1:2 {else
 
 ### More examples
 
-```
+```text
 {title: Five-note scale}
 {defaults: start=A2 end=E4 tempo=120 direction=up-down}
 {cue: [I:1]}
 [I] 1/ma 2/me 3/mi 4/mo 5/mu 4 3 2 | 1:2 r:2
 ```
 
-```
+```text
 {title: Siren}
 {defaults: start=C3 end=C4 tempo=60 step=+2}
 {vowel: ng}
@@ -101,7 +101,7 @@ Pattern lines can switch on a parameter: `{if speed=3} 1 2 3 4 5 4 3 2 1:2 {else
 [I] 1~8:4 8~1:4 | r:4
 ```
 
-```
+```text
 {title: Octave jump}
 {defaults: start=C3 end=F4 tempo=90}
 {cue: [I:2]}
@@ -127,8 +127,8 @@ The visual editor works on the AST, not the text, so the grid and text views can
 ### Steps
 
 1. **Parse.** A hand-written tokenizer and recursive-descent parser turn `.vex` into an Exercise AST. Every error carries line and column; the same code runs in the editor and in `vex lint`.
-2. **Expand.** Given the AST and resolved settings, compute the list of roots (`start` to `end` by `step`, in the chosen `direction`), then emit events per repetition: count-in clicks, the cue chord, the pattern notes with degrees resolved to MIDI through the chosen scale, and the rest. Roots whose highest note would pass `end` plus the pattern's span are dropped, so a singer is never pushed past their top note.
-3. **Adapt.** The Strudel adapter converts events to a Strudel pattern with `note()` values and explicit timings, played on the self-hosted piano samples. A thin interface (`play`, `stop`, `onEvent`) hides Strudel from the UI.
+1. **Expand.** Given the AST and resolved settings, compute the list of roots (`start` to `end` by `step`, in the chosen `direction`), then emit events per repetition: count-in clicks, the cue chord, the pattern notes with degrees resolved to MIDI through the chosen scale, and the rest. Roots whose highest note would pass `end` plus the pattern's span are dropped, so a singer is never pushed past their top note.
+1. **Adapt.** The Strudel adapter converts events to a Strudel pattern with `note()` values and explicit timings, played on the self-hosted piano samples. A thin interface (`play`, `stop`, `onEvent`) hides Strudel from the UI.
 
 ### Why Strudel fits, and where it doesn't
 
@@ -142,13 +142,13 @@ Raw Strudel is JavaScript and gets evaluated. It is therefore never accepted fro
 
 Five screens, all client-side. A singer reaches sound in two taps: pick an exercise, press play.
 
-| Screen | What it does |
-| --- | --- |
-| Library (home) | A row of collections, then exercise tiles; facet filters, favourites and search |
-| Player | Play/stop, current root, notes highlighted as they sound, settings panel; plays one exercise or a whole collection |
-| Editor | Grid and text views of one exercise, live preview, share and export |
-| My range | One-time setup of lowest and highest comfortable note; fills `start`/`end` everywhere |
-| My exercises | Favourites, my exercises and my collections on this device, with backup and restore |
+| Screen         | What it does                                                                                                       |
+| -------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Library (home) | A row of collections, then exercise tiles; facet filters, favourites and search                                    |
+| Player         | Play/stop, current root, notes highlighted as they sound, settings panel; plays one exercise or a whole collection |
+| Editor         | Grid and text views of one exercise, live preview, share and export                                                |
+| My range       | One-time setup of lowest and highest comfortable note; fills `start`/`end` everywhere                              |
+| My exercises   | Favourites, my exercises and my collections on this device, with backup and restore                                |
 
 ### Player
 
@@ -199,15 +199,15 @@ Exercises are described by several independent facets instead of one category, g
 
 Some facets are written by the author and checked against a fixed vocabulary; others are computed by the engine from the pattern, so they can never be wrong.
 
-| Facet | Values | Source |
-| --- | --- | --- |
-| Focus | warm-up, range, agility, intervals, breath, resonance, cool-down (one or more) | Author, `{focus: range, agility}` |
-| Level | beginner, intermediate, advanced | Author, `{level: …}` |
-| Technique | lip trill, hum, siren, staccato, legato, vowel shaping, glottal onset | Author, `{technique: …}` |
-| Voice | any, or soprano, mezzo, alto, tenor, baritone, bass | Author, `{voice: …}`, default any |
-| Span | within a 3rd, a 5th, an octave, beyond an octave | Computed from the highest and lowest degree |
-| Length | under 2 min, 2–5 min, over 5 min | Computed at default settings |
-| Fits my range | yes / no | Computed from span against the singer's saved range |
+| Facet         | Values                                                                         | Source                                              |
+| ------------- | ------------------------------------------------------------------------------ | --------------------------------------------------- |
+| Focus         | warm-up, range, agility, intervals, breath, resonance, cool-down (one or more) | Author, `{focus: range, agility}`                   |
+| Level         | beginner, intermediate, advanced                                               | Author, `{level: …}`                                |
+| Technique     | lip trill, hum, siren, staccato, legato, vowel shaping, glottal onset          | Author, `{technique: …}`                            |
+| Voice         | any, or soprano, mezzo, alto, tenor, baritone, bass                            | Author, `{voice: …}`, default any                   |
+| Span          | within a 3rd, a 5th, an octave, beyond an octave                               | Computed from the highest and lowest degree         |
+| Length        | under 2 min, 2–5 min, over 5 min                                               | Computed at default settings                        |
+| Fits my range | yes / no                                                                       | Computed from span against the singer's saved range |
 
 The vocabulary lives in `site/data/facets.yaml` with English and Italian labels; `vex lint` rejects any value not listed there. The first `focus` value decides the exercise's folder and its colour, so the songbooks-style category accents still apply.
 
@@ -252,35 +252,35 @@ Accounts are optional and arrive in M5, built on AWS in an EU region and managed
 
 ### What an account unlocks
 
-| Feature | Without an account | With an account |
-| --- | --- | --- |
-| Create exercises and collections | Yes, stored on the device | Yes, synced |
-| Favourites, My range, theme, language | This device only | Synced across devices |
-| Share by link | Yes | Yes |
-| Publish to the library | GitHub issue form, reviewed by a maintainer | Community gallery, under your profile |
-| Profile page | No | Display name and published items |
+| Feature                               | Without an account                          | With an account                       |
+| ------------------------------------- | ------------------------------------------- | ------------------------------------- |
+| Create exercises and collections      | Yes, stored on the device                   | Yes, synced                           |
+| Favourites, My range, theme, language | This device only                            | Synced across devices                 |
+| Share by link                         | Yes                                         | Yes                                   |
+| Publish to the library                | GitHub issue form, reviewed by a maintainer | Community gallery, under your profile |
+| Profile page                          | No                                          | Display name and published items      |
 
 On first sign-in, everything already on the device uploads automatically, in the same JSON format as the backup file. After that, each item syncs on its own, and the most recently changed copy wins.
 
 ### Architecture
 
-| Part | AWS service | Role |
-| --- | --- | --- |
-| Sign-in | Cognito user pool, Essentials tier | Email one-time code or passkey, no passwords; managed login pages in English and Italian; issues JWTs |
-| API | API Gateway HTTP API with a JWT authorizer | `GET`/`PUT /me/library`, `DELETE /me`, `GET /gallery`, `POST /gallery`, `POST /gallery/{id}/report`; CORS limited to the site's origin; throttled |
-| Logic | Lambda, TypeScript | Validates every `.vex` with the shared engine parser before storing it, so the API never accepts a file the site can't play |
-| Data | DynamoDB, one table, provisioned capacity inside the free tier | Users, library items, published items and reports |
-| Email | SES with a verified domain | Sign-in codes, in the user's language |
-| Cost guard | AWS Budgets, API throttling | Alert at $5 a month |
+| Part       | AWS service                                                    | Role                                                                                                                                              |
+| ---------- | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Sign-in    | Cognito user pool, Essentials tier                             | Email one-time code or passkey, no passwords; managed login pages in English and Italian; issues JWTs                                             |
+| API        | API Gateway HTTP API with a JWT authorizer                     | `GET`/`PUT /me/library`, `DELETE /me`, `GET /gallery`, `POST /gallery`, `POST /gallery/{id}/report`; CORS limited to the site's origin; throttled |
+| Logic      | Lambda, TypeScript                                             | Validates every `.vex` with the shared engine parser before storing it, so the API never accepts a file the site can't play                       |
+| Data       | DynamoDB, one table, provisioned capacity inside the free tier | Users, library items, published items and reports                                                                                                 |
+| Email      | SES with a verified domain                                     | Sign-in codes, in the user's language                                                                                                             |
+| Cost guard | AWS Budgets, API throttling                                    | Alert at $5 a month                                                                                                                               |
 
 The region is Frankfurt or Milan, whichever offers every service above; both keep data in the EU.
 
 Data model additions:
 
-| Object | Fields |
-| --- | --- |
-| User | Cognito id, display name, language, created |
-| Library item | user, item id, kind (exercise, collection, favourites, settings), body, updated |
+| Object         | Fields                                                                                           |
+| -------------- | ------------------------------------------------------------------------------------------------ |
+| User           | Cognito id, display name, language, created                                                      |
+| Library item   | user, item id, kind (exercise, collection, favourites, settings), body, updated                  |
 | Published item | id, author, `.vex` or collection body, facets, status (visible, hidden), report count, published |
 
 ### Deployment
@@ -302,12 +302,12 @@ Data model additions:
 
 At this project's likely scale, accounts cost close to nothing, because every service in the plan has a free allowance that does not expire. Estimates assume about 300 API calls and 2 emails per active user per month, at US list prices; EU regions are roughly 10–20% higher.
 
-| Active users per month | Cognito | API Gateway | SES | DynamoDB and Lambda | Total |
-| --- | --- | --- | --- | --- | --- |
-| 100 | $0 | about $0.03 | about $0.02 | $0 | about $0, plus $0.50 for a custom API domain |
-| 1,000 | $0 | about $0.30 | about $0.20 | $0 | about $0.50 |
-| 10,000 | $0 | about $3 | about $2 | $0 | about $5 |
-| 20,000 | about $150 | about $6 | about $4 | $0 | about $160 |
+| Active users per month | Cognito    | API Gateway | SES         | DynamoDB and Lambda | Total                                        |
+| ---------------------- | ---------- | ----------- | ----------- | ------------------- | -------------------------------------------- |
+| 100                    | $0         | about $0.03 | about $0.02 | $0                  | about $0, plus $0.50 for a custom API domain |
+| 1,000                  | $0         | about $0.30 | about $0.20 | $0                  | about $0.50                                  |
+| 10,000                 | $0         | about $3    | about $2    | $0                  | about $5                                     |
+| 20,000                 | about $150 | about $6    | about $4    | $0                  | about $160                                   |
 
 - Cognito Essentials includes 10,000 free monthly active users and charges $0.015 per user above that ([Cognito pricing](https://aws.amazon.com/cognito/pricing/)).
 - DynamoDB's always-free tier covers 25 read and 25 write capacity units of provisioned capacity and 25 GB of storage; on-demand requests get no free allowance ([DynamoDB free-tier design](https://builder.aws.com/content/3KlSd7COLOAukLb2mPBFp3zN2dI/design-dynamodb-to-stay-in-the-always-free-tier)).
@@ -334,23 +334,23 @@ The site reuses the songbooks site design as is, and a Theme dropdown recolours 
 
 Theme and mode are two separate choices: the dropdown picks the palette, the Light / Dark / System control picks the variant. Light values for each palette:
 
-| Theme | Desk | Paper | Ink | Site colour | Band | Band text / accent | Character |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Manuscript | `#e9e2d3` | `#faf6ee` | `#2a1f1a` | `#8c2f39` | `#2b2320` | `#f3ece2` / `#f0a3a8` | Warm paper, oxblood |
-| Vermilion | `#f4dcd0` | `#fff7f2` | `#2a1512` | `#c2321a` | `#3b1410` | `#fde9df` / `#ff9b80` | Peach, vermilion, red-black band |
-| Tangerine | `#fbd9b8` | `#fff8ef` | `#2b1a10` | `#b84508` | `#4a1f08` | `#fff1e2` / `#ffb26b` | Apricot, burnt orange, rust band |
-| Tomato | `#f7d4cb` | `#fffaf7` | `#2a1210` | `#b3261e` | `#b3261e` | `#fff4ef` / `#ffd3a8` | Coral, with a red band |
-| Blood orange | `#fde0cc` | `#fff5ec` | `#24110b` | `#a8320c` | `#f97316` | `#1a0a04` / `#4a1205` | Bright orange band, dark type |
-| Songbooks classic | `#dde2ee` | `#f6f8fc` | `#1b2338` | `#0f7f8a` | `#232c42` | `#eef1f7` / `#5fd0d8` | The original songbooks look |
+| Theme             | Desk      | Paper     | Ink       | Site colour | Band      | Band text / accent    | Character                        |
+| ----------------- | --------- | --------- | --------- | ----------- | --------- | --------------------- | -------------------------------- |
+| Manuscript        | `#e9e2d3` | `#faf6ee` | `#2a1f1a` | `#8c2f39`   | `#2b2320` | `#f3ece2` / `#f0a3a8` | Warm paper, oxblood              |
+| Vermilion         | `#f4dcd0` | `#fff7f2` | `#2a1512` | `#c2321a`   | `#3b1410` | `#fde9df` / `#ff9b80` | Peach, vermilion, red-black band |
+| Tangerine         | `#fbd9b8` | `#fff8ef` | `#2b1a10` | `#b84508`   | `#4a1f08` | `#fff1e2` / `#ffb26b` | Apricot, burnt orange, rust band |
+| Tomato            | `#f7d4cb` | `#fffaf7` | `#2a1210` | `#b3261e`   | `#b3261e` | `#fff4ef` / `#ffd3a8` | Coral, with a red band           |
+| Blood orange      | `#fde0cc` | `#fff5ec` | `#24110b` | `#a8320c`   | `#f97316` | `#1a0a04` / `#4a1205` | Bright orange band, dark type    |
+| Songbooks classic | `#dde2ee` | `#f6f8fc` | `#1b2338` | `#0f7f8a`   | `#232c42` | `#eef1f7` / `#5fd0d8` | The original songbooks look      |
 
 How it works:
 
 1. **Themes are data.** `site/data/themes.yaml` holds one entry per theme with a light and a dark token set (desk, paper, card, ink, ink2, rule, site, site-ink, band, band-ink, band-ink2, band-accent) and optional category-accent overrides.
-2. **Generated CSS.** Hugo renders them into `themes.css` as `:root[data-palette="vermilion"]` and `:root[data-palette="vermilion"][data-theme="dark"]` blocks. Components read only tokens, so a theme never touches component CSS.
-3. **No flash.** An inline script in `<head>`, the songbooks theme-init pattern, applies the saved palette and mode from `localStorage` before first paint. With nothing saved, mode follows `prefers-color-scheme` and the palette falls back to the default theme.
-4. **The dropdown.** A native `<select>` labelled "Theme" sits next to the Light / Dark / System control in the masthead, and in the settings sheet on phones. A native control keeps keyboard, screen reader and mobile pickers working for free. The choice is per device; share links never carry it, because a theme belongs to the viewer, not the exercise.
-5. **Accent collisions.** Category accents are re-derived for each theme against its own surfaces. A theme overrides one that sits too close to its site colour, such as the orange warm-up accent in Tangerine and Blood orange, which switches to ochre.
-6. **Checked in CI.** The contrast job runs over every theme and mode, failing below 4.5:1 for text and 3:1 for chrome, and flags any category accent too close to the theme's site colour.
+1. **Generated CSS.** Hugo renders them into `themes.css` as `:root[data-palette="vermilion"]` and `:root[data-palette="vermilion"][data-theme="dark"]` blocks. Components read only tokens, so a theme never touches component CSS.
+1. **No flash.** An inline script in `<head>`, the songbooks theme-init pattern, applies the saved palette and mode from `localStorage` before first paint. With nothing saved, mode follows `prefers-color-scheme` and the palette falls back to the default theme.
+1. **The dropdown.** A native `<select>` labelled "Theme" sits next to the Light / Dark / System control in the masthead, and in the settings sheet on phones. A native control keeps keyboard, screen reader and mobile pickers working for free. The choice is per device; share links never carry it, because a theme belongs to the viewer, not the exercise.
+1. **Accent collisions.** Category accents are re-derived for each theme against its own surfaces. A theme overrides one that sits too close to its site colour, such as the orange warm-up accent in Tangerine and Blood orange, which switches to ochre.
+1. **Checked in CI.** The contrast job runs over every theme and mode, failing below 4.5:1 for text and 3:1 for chrome, and flags any category accent too close to the theme's site colour.
 
 Adding a theme is one YAML entry plus a passing contrast check, with no CSS. Manuscript's dark variant is already drawn (desk `#1a1512`, paper `#241d19`, ink `#f1e9de`, site `#f0a3a8`); the other dark variants are designed in M2.
 
@@ -358,7 +358,7 @@ Adding a theme is one YAML entry plus a passing contrast check, with no CSS. Man
 
 One repo shaped like songbooks: content files in category folders, a Makefile as the entry point, Hugo for pages, generated site data, and a `skills/` folder for agents. The difference is one TypeScript engine shared by the browser and CI, so the linter and the player never disagree.
 
-```
+```text
 exercises/
   warm-up/
     category.yaml            ← name, description, accent colour (like songbook.yaml)
@@ -396,12 +396,12 @@ The file prefix (`01-`) sets order within a category, as song numbers do in song
 
 ### Data model
 
-| Object | Fields | Produced by |
-| --- | --- | --- |
-| Exercise | id, title (+ translations), description, facets (focus, level, technique, voice; span and length computed), defaults, params, cue, pattern AST | `parse` |
-| Settings | start, end, tempo, step, direction, cue, count-in, param values | Panel + resolution order |
-| Event | time (beats), duration, kind (note, chord, glide, click), midi or midi list, syllable, repetition index | `expand` |
-| Site data | Exercise and collection lists with facets, contour, accent and length | `vex build-data` → `site/data/exercises.json` |
+| Object    | Fields                                                                                                                                         | Produced by                                   |
+| --------- | ---------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| Exercise  | id, title (+ translations), description, facets (focus, level, technique, voice; span and length computed), defaults, params, cue, pattern AST | `parse`                                       |
+| Settings  | start, end, tempo, step, direction, cue, count-in, param values                                                                                | Panel + resolution order                      |
+| Event     | time (beats), duration, kind (note, chord, glide, click), midi or midi list, syllable, repetition index                                        | `expand`                                      |
+| Site data | Exercise and collection lists with facets, contour, accent and length                                                                          | `vex build-data` → `site/data/exercises.json` |
 
 The event list is the contract between engine and UI: playback, highlighting and the piano roll all read it, so a bug fix in `expand` fixes all three.
 
@@ -411,23 +411,23 @@ Copy the songbooks pipeline: a PR check on content and engine changes, and one r
 
 ### PR check (`pr-check.yml`)
 
-| Job | Runs when | Does |
-| --- | --- | --- |
-| Lint exercises | `exercises/**` changed | `vex lint` on changed exercises and collections, checking facet values and collection ids; errors become GitHub annotations at file, line and column |
-| Engine tests | `engine/**`, `cli/**` changed | Vitest unit tests plus golden fixtures (`.vex` in, events JSON out) |
-| Expand all | Engine changed | Expands every library exercise at every voice preset, so an engine change can't break an existing exercise |
-| Site build | Anything under `site/` or engine changed | `make site` with Hugo, no deploy |
-| Contrast | `main.css` or `themes.yaml` changed | Checks every token pair in every theme and mode against 4.5:1 and 3:1 floors |
+| Job            | Runs when                                | Does                                                                                                                                                 |
+| -------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Lint exercises | `exercises/**` changed                   | `vex lint` on changed exercises and collections, checking facet values and collection ids; errors become GitHub annotations at file, line and column |
+| Engine tests   | `engine/**`, `cli/**` changed            | Vitest unit tests plus golden fixtures (`.vex` in, events JSON out)                                                                                  |
+| Expand all     | Engine changed                           | Expands every library exercise at every voice preset, so an engine change can't break an existing exercise                                           |
+| Site build     | Anything under `site/` or engine changed | `make site` with Hugo, no deploy                                                                                                                     |
+| Contrast       | `main.css` or `themes.yaml` changed      | Checks every token pair in every theme and mode against 4.5:1 and 3:1 floors                                                                         |
 
 Path filters and "build machinery changed, check everything" logic follow `pr-check.yml` in songbooks.
 
 ### Release (`release.yml`)
 
 1. On push to `main`, check out with full history and set up Node.
-2. Run `make all`: lint, test, build site data, render release assets.
-3. Run semantic-release with `cycjimmy/semantic-release-action`, `tagFormat: v${version}`, branch `main`.
-4. If a release was published: install Hugo (version pinned with a Renovate comment), build the site with the tag as the footer version, and upload the Pages artifact.
-5. A separate `deploy-site` job with `pages: write` and `id-token: write` runs `actions/deploy-pages`.
+1. Run `make all`: lint, test, build site data, render release assets.
+1. Run semantic-release with `cycjimmy/semantic-release-action`, `tagFormat: v${version}`, branch `main`.
+1. If a release was published: install Hugo (version pinned with a Renovate comment), build the site with the tag as the footer version, and upload the Pages artifact.
+1. A separate `deploy-site` job with `pages: write` and `id-token: write` runs `actions/deploy-pages`.
 
 Release assets, attached the way songbooks attaches PDFs:
 
@@ -449,23 +449,23 @@ Server-side storage arrives with accounts in M5, on AWS and managed with OpenTof
 
 Ship about 15 exercises at launch, covering every focus value, plus three library collections: 10-minute daily warm-up, Choir warm-up and Range builder. The Category column is each exercise's first focus value. Each one also serves as a test fixture, so together they must exercise every syntax feature at least once.
 
-| Category | Exercise | Pattern | Features covered |
-| --- | --- | --- | --- |
-| Warm-up | Lip trill | `1 2 3 4 5 4 3 2 1:2` on "brr" | vowel |
-| Warm-up | Siren | `1~8:4 8~1:4` | glide, step +2 |
-| Warm-up | Hum to open | `1:2 1/mm 1/ah:2` | syllables |
-| Range | Major arpeggio | `1 3 5 3 1:2` | cue, scale param |
-| Range | Octave arpeggio | `1 3 5 8 5 3 1:2` | degrees above 7 |
-| Range | Octave slide | `1 8~1:3` | glide after leap |
-| Agility | Five-note scale | `1 2 3 4 5 4 3 2 1:2` | syllables, fast tempo |
-| Agility | Nine-note scale | `1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2 1:2` | long patterns |
-| Agility | Rossini run | sixteenth-note runs over 1.5 octaves | `:1/4` durations, `{if speed}` |
-| Intervals | Thirds ladder | `1 3 2 4 3 5 4 2 1:2` | stepwise logic |
-| Intervals | Minor triad | `1 b3 5 b3 1:2` | accidentals |
-| Intervals | Chromatic step | `1 #1 2 #1 1:2` | chromatic alterations |
-| Breath | Long tone | `1:8` on "ah" | very long notes, slow tempo |
-| Breath | Staccato pulse | `1:1/2 r:1/2` ×4, then `5:2` | rests inside pattern |
-| Breath | Messa di voce | `1:8` with dynamic marking | open: dynamics syntax (see Roadmap) |
+| Category  | Exercise        | Pattern                               | Features covered                    |
+| --------- | --------------- | ------------------------------------- | ----------------------------------- |
+| Warm-up   | Lip trill       | `1 2 3 4 5 4 3 2 1:2` on "brr"        | vowel                               |
+| Warm-up   | Siren           | `1~8:4 8~1:4`                         | glide, step +2                      |
+| Warm-up   | Hum to open     | `1:2 1/mm 1/ah:2`                     | syllables                           |
+| Range     | Major arpeggio  | `1 3 5 3 1:2`                         | cue, scale param                    |
+| Range     | Octave arpeggio | `1 3 5 8 5 3 1:2`                     | degrees above 7                     |
+| Range     | Octave slide    | `1 8~1:3`                             | glide after leap                    |
+| Agility   | Five-note scale | `1 2 3 4 5 4 3 2 1:2`                 | syllables, fast tempo               |
+| Agility   | Nine-note scale | `1 2 3 4 5 6 7 8 9 8 7 6 5 4 3 2 1:2` | long patterns                       |
+| Agility   | Rossini run     | sixteenth-note runs over 1.5 octaves  | `:1/4` durations, `{if speed}`      |
+| Intervals | Thirds ladder   | `1 3 2 4 3 5 4 2 1:2`                 | stepwise logic                      |
+| Intervals | Minor triad     | `1 b3 5 b3 1:2`                       | accidentals                         |
+| Intervals | Chromatic step  | `1 #1 2 #1 1:2`                       | chromatic alterations               |
+| Breath    | Long tone       | `1:8` on "ah"                         | very long notes, slow tempo         |
+| Breath    | Staccato pulse  | `1:1/2 r:1/2` ×4, then `5:2`          | rests inside pattern                |
+| Breath    | Messa di voce   | `1:8` with dynamic marking            | open: dynamics syntax (see Roadmap) |
 
 Each file carries a one-line description of what to focus on. Teachers who contribute exercises get credit through `{author: …}`, listed on a credits page as in songbooks.
 
@@ -474,11 +474,11 @@ Each file carries a one-line description of what to focus on. Teachers who contr
 Six milestones, each ending in a release a singer can use. The pipeline goes live in M1, so every later step ships through semantic-release.
 
 1. **M0 Format and parser.** Write the `.vex` spec, `parse`, `vex lint` and golden fixtures. Gate: all 15 library files parse and lint clean.
-2. **M1 Player.** Build `expand`, the Strudel adapter, the settings panel and Hugo library pages; set up both workflows. Gate: the first tagged release is live on GitHub Pages.
-3. **M2 Design and range.** Apply the songbooks styles, the theme dropdown with all six themes and their dark variants, the Light / Dark / System control, contour covers, category accents, facet filters, favourites, the gjed footer, en/it i18n and My range. Gate: the contrast check passes for every theme in light and dark.
-4. **M3 Editor and sharing.** Ship the grid and text editor, share links, device storage, collections (library and user-made) with the collection player, backup and restore, and the submit-to-library issue form. Gate: an exercise made in the grid round-trips through text and a share link unchanged.
-5. **M4 Polish.** Add offline support (service worker), MIDI release assets and an accessibility pass on keyboard and screen reader use.
-6. **M5 Accounts.** Ship the OpenTofu stack in `infra/`, the API, sign-in, sync of everything users save, the community gallery with reporting, and the privacy page. Gate: a user signs in on two devices and sees the same favourites and collections, and Delete my account leaves nothing behind.
+1. **M1 Player.** Build `expand`, the Strudel adapter, the settings panel and Hugo library pages; set up both workflows. Gate: the first tagged release is live on GitHub Pages.
+1. **M2 Design and range.** Apply the songbooks styles, the theme dropdown with all six themes and their dark variants, the Light / Dark / System control, contour covers, category accents, facet filters, favourites, the gjed footer, en/it i18n and My range. Gate: the contrast check passes for every theme in light and dark.
+1. **M3 Editor and sharing.** Ship the grid and text editor, share links, device storage, collections (library and user-made) with the collection player, backup and restore, and the submit-to-library issue form. Gate: an exercise made in the grid round-trips through text and a share link unchanged.
+1. **M4 Polish.** Add offline support (service worker), MIDI release assets and an accessibility pass on keyboard and screen reader use.
+1. **M5 Accounts.** Ship the OpenTofu stack in `infra/`, the API, sign-in, sync of everything users save, the community gallery with reporting, and the privacy page. Gate: a user signs in on two devices and sees the same favourites and collections, and Delete my account leaves nothing behind.
 
 Later: live pitch detection showing sung pitch against the target, and dynamics.
 

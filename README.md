@@ -1,13 +1,13 @@
 # Vocalizzi — export (2026-11-26)
 
-| Path | What |
-| --- | --- |
+| Path                                | What                                                                                                                                                                       |
+| ----------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `plan/vocal-exercises-site-plan.md` | The full plan: `.vex` format, engine, UX, languages and appearance, facets, collections, favourites, AWS accounts, design and themes, repo layout, CI/CD, library, roadmap |
-| `design/artboards/*.dc.html` | Design canvas sources: Library, Player, Editor, Player on a phone (night), and the orange/red palette options |
-| `design/canvas.json` | Canvas layout |
-| `brand/` | gjed mark (light and dark) and logo-usage notes, for the "made by gjed" footer |
-| `exercises/` | Four sample `.vex` files with facets, in the repo layout |
-| `collections/` | A sample library collection (`daily-warm-up.yaml`) |
+| `design/artboards/*.dc.html`        | Design canvas sources: Library, Player, Editor, Player on a phone (night), and the orange/red palette options                                                              |
+| `design/canvas.json`                | Canvas layout                                                                                                                                                              |
+| `brand/`                            | gjed mark (light and dark) and logo-usage notes, for the "made by gjed" footer                                                                                             |
+| `exercises/`                        | Four sample `.vex` files with facets, in the repo layout                                                                                                                   |
+| `collections/`                      | A sample library collection (`daily-warm-up.yaml`)                                                                                                                         |
 
 ## Design direction
 
