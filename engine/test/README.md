@@ -24,7 +24,7 @@ fixtures/
 `transform.ts` exports the one function every fixture runs through: `.vex` text in, a JSON-serialisable
 value out. It currently returns the `parse` result, so a fixture holds the AST or the errors with their
 line, column and message. When `expand` lands, point it at `parse` followed by `expand` for event-list
-fixtures. The conformance tables of the spec are in `parse.test.ts`, not in fixtures.
+fixtures. The conformance tables of the spec are in `parse-conformance.test.ts`, not in fixtures.
 
 ## Regenerating expected output
 
