@@ -1,0 +1,21 @@
+{
+  "name": "singing-practice",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "workspaces": [
+    "engine"
+  ],
+  "scripts": {
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.4",
+    "typescript": "^7.0.2",
+    "vitest": "^5.1.2"
+  }
+}
