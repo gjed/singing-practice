@@ -10,12 +10,12 @@ One page of rules for the gjed mark and lockup. The **UsageGuide** card shows ea
 
 ## Minimum size
 
-| Asset | Minimum | Below that |
-| --- | --- | --- |
-| Faceted mark with gaps (`gjed-mark*.svg`) | 24px tall | switch to the small mark |
-| Small mark (`gjed-mark-small.svg`, no gaps; favicons) | 16px tall | don't use the mark |
-| Lockup (`gjed-lockup*.svg`) | 20px tall (≈96px wide) | use the mark alone |
-| Badges | 20px | — |
+| Asset                                                 | Minimum                | Below that               |
+| ----------------------------------------------------- | ---------------------- | ------------------------ |
+| Faceted mark with gaps (`gjed-mark*.svg`)             | 24px tall              | switch to the small mark |
+| Small mark (`gjed-mark-small.svg`, no gaps; favicons) | 16px tall              | don't use the mark       |
+| Lockup (`gjed-lockup*.svg`)                           | 20px tall (≈96px wide) | use the mark alone       |
+| Badges                                                | 20px                   | —                        |
 
 ## Versions on light and dark
 
