@@ -168,10 +168,14 @@ const LETTER_OR_MARK = /^[\p{L}\p{M}]$/u;
 // Tokens shared by directive values and pattern lines
 // ---------------------------------------------------------------------------------------------------
 
-function parseDuration(s: string, colon: number, line: number): { duration: Duration; end: number } {
+/**
+ * Reads a duration at a `:`. Without a digit after the colon there is no duration, so the item ends before
+ * the colon and the caller's separation (or chord) check reports it.
+ */
+function parseDuration(s: string, colon: number, line: number): { duration: Duration; end: number } | undefined {
   const bad = (why: string) => new Fail("invalid-duration", colon + 1, why);
   let p = colon + 1;
-  if (!isDigit(s.charAt(p))) throw bad("a duration is ':' followed by a positive integer or a fraction");
+  if (!isDigit(s.charAt(p))) return undefined;
   let q = p;
   while (isDigit(s.charAt(q))) q++;
   const numerator = Number(s.slice(p, q));
@@ -273,8 +277,10 @@ function parseChord(s: string, open: number, limit: number, line: number): Chord
   let duration: Duration | undefined;
   if (p < close && s.charAt(p) === ":") {
     const d = parseDuration(s, p, line);
-    duration = d.duration;
-    p = d.end;
+    if (d) {
+      duration = d.duration;
+      p = d.end;
+    }
   }
   if (p !== close) throw bad(`unexpected ${describe(s.charAt(p))} in a chord`);
   const chord: Chord = { kind: "chord", numeral, degree, quality, span };
@@ -719,8 +725,10 @@ function parsePatternLine(st: State, s: string, line: number): void {
       let duration: Duration = { numerator: 1, denominator: 1 };
       if (s.charAt(end) === ":") {
         const d = parseDuration(s, end, line);
-        duration = d.duration;
-        end = d.end;
+        if (d) {
+          duration = d.duration;
+          end = d.end;
+        }
       }
       const note: Note = { kind: "note", pitch: first.pitch, duration, span: sp(line, i, end) };
       if (glideTo) note.glideTo = glideTo;
@@ -735,8 +743,10 @@ function parsePatternLine(st: State, s: string, line: number): void {
       let duration: Duration = { numerator: 1, denominator: 1 };
       if (s.charAt(end) === ":") {
         const d = parseDuration(s, end, line);
-        duration = d.duration;
-        end = d.end;
+        if (d) {
+          duration = d.duration;
+          end = d.end;
+        }
       }
       currentList(st).push({ kind: "rest", duration, span: sp(line, i, end) });
       st.noteCount++;
