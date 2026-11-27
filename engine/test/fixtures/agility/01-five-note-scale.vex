@@ -1,0 +1,6 @@
+{title: Five-note scale}
+{focus: agility}
+{level: beginner}
+{defaults: start=A2 end=E4 tempo=120 direction=up-down}
+{cue: [I:1]}
+[I] 1/ma 2/me 3/mi 4/mo 5/mu 4 3 2 | 1:2 r:2

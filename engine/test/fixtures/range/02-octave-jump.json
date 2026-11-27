@@ -1,0 +1,336 @@
+{
+  "ok": true,
+  "exercise": {
+    "title": "Octave jump",
+    "translations": {
+      "title": {},
+      "description": {}
+    },
+    "facets": {
+      "focus": [
+        "range"
+      ],
+      "technique": [],
+      "level": "intermediate"
+    },
+    "defaults": [
+      {
+        "key": "start",
+        "value": "C3",
+        "keySpan": {
+          "line": 4,
+          "column": 12,
+          "endLine": 4,
+          "endColumn": 17
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 18,
+          "endLine": 4,
+          "endColumn": 20
+        },
+        "span": {
+          "line": 4,
+          "column": 12,
+          "endLine": 4,
+          "endColumn": 20
+        }
+      },
+      {
+        "key": "end",
+        "value": "F4",
+        "keySpan": {
+          "line": 4,
+          "column": 21,
+          "endLine": 4,
+          "endColumn": 24
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 25,
+          "endLine": 4,
+          "endColumn": 27
+        },
+        "span": {
+          "line": 4,
+          "column": 21,
+          "endLine": 4,
+          "endColumn": 27
+        }
+      },
+      {
+        "key": "tempo",
+        "value": "90",
+        "keySpan": {
+          "line": 4,
+          "column": 28,
+          "endLine": 4,
+          "endColumn": 33
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 34,
+          "endLine": 4,
+          "endColumn": 36
+        },
+        "span": {
+          "line": 4,
+          "column": 28,
+          "endLine": 4,
+          "endColumn": 36
+        }
+      }
+    ],
+    "params": [],
+    "pattern": [
+      {
+        "kind": "chord",
+        "numeral": "I",
+        "degree": 1,
+        "quality": "",
+        "span": {
+          "line": 6,
+          "column": 1,
+          "endLine": 6,
+          "endColumn": 4
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 1,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 5,
+            "endLine": 6,
+            "endColumn": 6
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 2,
+          "span": {
+            "line": 6,
+            "column": 6,
+            "endLine": 6,
+            "endColumn": 10
+          }
+        },
+        "span": {
+          "line": 6,
+          "column": 5,
+          "endLine": 6,
+          "endColumn": 10
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 8,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 11,
+            "endLine": 6,
+            "endColumn": 12
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 2,
+          "span": {
+            "line": 6,
+            "column": 12,
+            "endLine": 6,
+            "endColumn": 16
+          }
+        },
+        "span": {
+          "line": 6,
+          "column": 11,
+          "endLine": 6,
+          "endColumn": 16
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 5,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 17,
+            "endLine": 6,
+            "endColumn": 18
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 17,
+          "endLine": 6,
+          "endColumn": 18
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 3,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 19,
+            "endLine": 6,
+            "endColumn": 20
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 19,
+          "endLine": 6,
+          "endColumn": 20
+        }
+      },
+      {
+        "kind": "bar",
+        "span": {
+          "line": 6,
+          "column": 21,
+          "endLine": 6,
+          "endColumn": 22
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 1,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 23,
+            "endLine": 6,
+            "endColumn": 24
+          }
+        },
+        "duration": {
+          "numerator": 2,
+          "denominator": 1,
+          "span": {
+            "line": 6,
+            "column": 24,
+            "endLine": 6,
+            "endColumn": 26
+          }
+        },
+        "span": {
+          "line": 6,
+          "column": 23,
+          "endLine": 6,
+          "endColumn": 26
+        }
+      },
+      {
+        "kind": "rest",
+        "duration": {
+          "numerator": 2,
+          "denominator": 1,
+          "span": {
+            "line": 6,
+            "column": 28,
+            "endLine": 6,
+            "endColumn": 30
+          }
+        },
+        "span": {
+          "line": 6,
+          "column": 27,
+          "endLine": 6,
+          "endColumn": 30
+        }
+      }
+    ],
+    "directives": [
+      {
+        "name": "title",
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 21
+        }
+      },
+      {
+        "name": "focus",
+        "span": {
+          "line": 2,
+          "column": 1,
+          "endLine": 2,
+          "endColumn": 15
+        }
+      },
+      {
+        "name": "level",
+        "span": {
+          "line": 3,
+          "column": 1,
+          "endLine": 3,
+          "endColumn": 22
+        }
+      },
+      {
+        "name": "defaults",
+        "span": {
+          "line": 4,
+          "column": 1,
+          "endLine": 4,
+          "endColumn": 37
+        }
+      },
+      {
+        "name": "cue",
+        "span": {
+          "line": 5,
+          "column": 1,
+          "endLine": 5,
+          "endColumn": 13
+        }
+      }
+    ],
+    "cue": {
+      "kind": "chord",
+      "numeral": "I",
+      "degree": 1,
+      "quality": "",
+      "span": {
+        "line": 5,
+        "column": 7,
+        "endLine": 5,
+        "endColumn": 12
+      },
+      "duration": {
+        "numerator": 2,
+        "denominator": 1,
+        "span": {
+          "line": 5,
+          "column": 9,
+          "endLine": 5,
+          "endColumn": 11
+        }
+      }
+    }
+  },
+  "errors": []
+}
