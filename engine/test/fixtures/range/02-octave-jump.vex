@@ -1,0 +1,6 @@
+{title: Octave jump}
+{focus: range}
+{level: intermediate}
+{defaults: start=C3 end=F4 tempo=90}
+{cue: [I:2]}
+[I] 1:1/2 8:1/2 5 3 | 1:2 r:2

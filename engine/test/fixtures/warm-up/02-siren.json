@@ -1,0 +1,323 @@
+{
+  "ok": true,
+  "exercise": {
+    "title": "Siren",
+    "translations": {
+      "title": {},
+      "description": {}
+    },
+    "facets": {
+      "focus": [
+        "warm-up"
+      ],
+      "technique": [
+        "siren"
+      ],
+      "level": "beginner"
+    },
+    "defaults": [
+      {
+        "key": "start",
+        "value": "C3",
+        "keySpan": {
+          "line": 5,
+          "column": 12,
+          "endLine": 5,
+          "endColumn": 17
+        },
+        "valueSpan": {
+          "line": 5,
+          "column": 18,
+          "endLine": 5,
+          "endColumn": 20
+        },
+        "span": {
+          "line": 5,
+          "column": 12,
+          "endLine": 5,
+          "endColumn": 20
+        }
+      },
+      {
+        "key": "end",
+        "value": "C4",
+        "keySpan": {
+          "line": 5,
+          "column": 21,
+          "endLine": 5,
+          "endColumn": 24
+        },
+        "valueSpan": {
+          "line": 5,
+          "column": 25,
+          "endLine": 5,
+          "endColumn": 27
+        },
+        "span": {
+          "line": 5,
+          "column": 21,
+          "endLine": 5,
+          "endColumn": 27
+        }
+      },
+      {
+        "key": "tempo",
+        "value": "60",
+        "keySpan": {
+          "line": 5,
+          "column": 28,
+          "endLine": 5,
+          "endColumn": 33
+        },
+        "valueSpan": {
+          "line": 5,
+          "column": 34,
+          "endLine": 5,
+          "endColumn": 36
+        },
+        "span": {
+          "line": 5,
+          "column": 28,
+          "endLine": 5,
+          "endColumn": 36
+        }
+      },
+      {
+        "key": "step",
+        "value": "+2",
+        "keySpan": {
+          "line": 5,
+          "column": 37,
+          "endLine": 5,
+          "endColumn": 41
+        },
+        "valueSpan": {
+          "line": 5,
+          "column": 42,
+          "endLine": 5,
+          "endColumn": 44
+        },
+        "span": {
+          "line": 5,
+          "column": 37,
+          "endLine": 5,
+          "endColumn": 44
+        }
+      }
+    ],
+    "params": [],
+    "pattern": [
+      {
+        "kind": "chord",
+        "numeral": "I",
+        "degree": 1,
+        "quality": "",
+        "span": {
+          "line": 8,
+          "column": 1,
+          "endLine": 8,
+          "endColumn": 4
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 1,
+          "octave": 0,
+          "span": {
+            "line": 8,
+            "column": 5,
+            "endLine": 8,
+            "endColumn": 6
+          }
+        },
+        "duration": {
+          "numerator": 4,
+          "denominator": 1,
+          "span": {
+            "line": 8,
+            "column": 8,
+            "endLine": 8,
+            "endColumn": 10
+          }
+        },
+        "span": {
+          "line": 8,
+          "column": 5,
+          "endLine": 8,
+          "endColumn": 10
+        },
+        "glideTo": {
+          "alter": 0,
+          "degree": 8,
+          "octave": 0,
+          "span": {
+            "line": 8,
+            "column": 7,
+            "endLine": 8,
+            "endColumn": 8
+          }
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 8,
+          "octave": 0,
+          "span": {
+            "line": 8,
+            "column": 11,
+            "endLine": 8,
+            "endColumn": 12
+          }
+        },
+        "duration": {
+          "numerator": 4,
+          "denominator": 1,
+          "span": {
+            "line": 8,
+            "column": 14,
+            "endLine": 8,
+            "endColumn": 16
+          }
+        },
+        "span": {
+          "line": 8,
+          "column": 11,
+          "endLine": 8,
+          "endColumn": 16
+        },
+        "glideTo": {
+          "alter": 0,
+          "degree": 1,
+          "octave": 0,
+          "span": {
+            "line": 8,
+            "column": 13,
+            "endLine": 8,
+            "endColumn": 14
+          }
+        }
+      },
+      {
+        "kind": "bar",
+        "span": {
+          "line": 8,
+          "column": 17,
+          "endLine": 8,
+          "endColumn": 18
+        }
+      },
+      {
+        "kind": "rest",
+        "duration": {
+          "numerator": 4,
+          "denominator": 1,
+          "span": {
+            "line": 8,
+            "column": 20,
+            "endLine": 8,
+            "endColumn": 22
+          }
+        },
+        "span": {
+          "line": 8,
+          "column": 19,
+          "endLine": 8,
+          "endColumn": 22
+        }
+      }
+    ],
+    "directives": [
+      {
+        "name": "title",
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 15
+        }
+      },
+      {
+        "name": "focus",
+        "span": {
+          "line": 2,
+          "column": 1,
+          "endLine": 2,
+          "endColumn": 17
+        }
+      },
+      {
+        "name": "technique",
+        "span": {
+          "line": 3,
+          "column": 1,
+          "endLine": 3,
+          "endColumn": 19
+        }
+      },
+      {
+        "name": "level",
+        "span": {
+          "line": 4,
+          "column": 1,
+          "endLine": 4,
+          "endColumn": 18
+        }
+      },
+      {
+        "name": "defaults",
+        "span": {
+          "line": 5,
+          "column": 1,
+          "endLine": 5,
+          "endColumn": 45
+        }
+      },
+      {
+        "name": "vowel",
+        "span": {
+          "line": 6,
+          "column": 1,
+          "endLine": 6,
+          "endColumn": 12
+        }
+      },
+      {
+        "name": "cue",
+        "span": {
+          "line": 7,
+          "column": 1,
+          "endLine": 7,
+          "endColumn": 13
+        }
+      }
+    ],
+    "vowel": "ng",
+    "cue": {
+      "kind": "chord",
+      "numeral": "I",
+      "degree": 1,
+      "quality": "",
+      "span": {
+        "line": 7,
+        "column": 7,
+        "endLine": 7,
+        "endColumn": 12
+      },
+      "duration": {
+        "numerator": 2,
+        "denominator": 1,
+        "span": {
+          "line": 7,
+          "column": 9,
+          "endLine": 7,
+          "endColumn": 11
+        }
+      }
+    }
+  },
+  "errors": []
+}

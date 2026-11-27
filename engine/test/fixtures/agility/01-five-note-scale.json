@@ -1,0 +1,447 @@
+{
+  "ok": true,
+  "exercise": {
+    "title": "Five-note scale",
+    "translations": {
+      "title": {},
+      "description": {}
+    },
+    "facets": {
+      "focus": [
+        "agility"
+      ],
+      "technique": [],
+      "level": "beginner"
+    },
+    "defaults": [
+      {
+        "key": "start",
+        "value": "A2",
+        "keySpan": {
+          "line": 4,
+          "column": 12,
+          "endLine": 4,
+          "endColumn": 17
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 18,
+          "endLine": 4,
+          "endColumn": 20
+        },
+        "span": {
+          "line": 4,
+          "column": 12,
+          "endLine": 4,
+          "endColumn": 20
+        }
+      },
+      {
+        "key": "end",
+        "value": "E4",
+        "keySpan": {
+          "line": 4,
+          "column": 21,
+          "endLine": 4,
+          "endColumn": 24
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 25,
+          "endLine": 4,
+          "endColumn": 27
+        },
+        "span": {
+          "line": 4,
+          "column": 21,
+          "endLine": 4,
+          "endColumn": 27
+        }
+      },
+      {
+        "key": "tempo",
+        "value": "120",
+        "keySpan": {
+          "line": 4,
+          "column": 28,
+          "endLine": 4,
+          "endColumn": 33
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 34,
+          "endLine": 4,
+          "endColumn": 37
+        },
+        "span": {
+          "line": 4,
+          "column": 28,
+          "endLine": 4,
+          "endColumn": 37
+        }
+      },
+      {
+        "key": "direction",
+        "value": "up-down",
+        "keySpan": {
+          "line": 4,
+          "column": 38,
+          "endLine": 4,
+          "endColumn": 47
+        },
+        "valueSpan": {
+          "line": 4,
+          "column": 48,
+          "endLine": 4,
+          "endColumn": 55
+        },
+        "span": {
+          "line": 4,
+          "column": 38,
+          "endLine": 4,
+          "endColumn": 55
+        }
+      }
+    ],
+    "params": [],
+    "pattern": [
+      {
+        "kind": "chord",
+        "numeral": "I",
+        "degree": 1,
+        "quality": "",
+        "span": {
+          "line": 6,
+          "column": 1,
+          "endLine": 6,
+          "endColumn": 4
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 1,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 5,
+            "endLine": 6,
+            "endColumn": 6
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 5,
+          "endLine": 6,
+          "endColumn": 9
+        },
+        "syllable": "ma"
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 2,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 10,
+            "endLine": 6,
+            "endColumn": 11
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 10,
+          "endLine": 6,
+          "endColumn": 14
+        },
+        "syllable": "me"
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 3,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 15,
+            "endLine": 6,
+            "endColumn": 16
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 15,
+          "endLine": 6,
+          "endColumn": 19
+        },
+        "syllable": "mi"
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 4,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 20,
+            "endLine": 6,
+            "endColumn": 21
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 20,
+          "endLine": 6,
+          "endColumn": 24
+        },
+        "syllable": "mo"
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 5,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 25,
+            "endLine": 6,
+            "endColumn": 26
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 25,
+          "endLine": 6,
+          "endColumn": 29
+        },
+        "syllable": "mu"
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 4,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 30,
+            "endLine": 6,
+            "endColumn": 31
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 30,
+          "endLine": 6,
+          "endColumn": 31
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 3,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 32,
+            "endLine": 6,
+            "endColumn": 33
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 32,
+          "endLine": 6,
+          "endColumn": 33
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 2,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 34,
+            "endLine": 6,
+            "endColumn": 35
+          }
+        },
+        "duration": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "span": {
+          "line": 6,
+          "column": 34,
+          "endLine": 6,
+          "endColumn": 35
+        }
+      },
+      {
+        "kind": "bar",
+        "span": {
+          "line": 6,
+          "column": 36,
+          "endLine": 6,
+          "endColumn": 37
+        }
+      },
+      {
+        "kind": "note",
+        "pitch": {
+          "alter": 0,
+          "degree": 1,
+          "octave": 0,
+          "span": {
+            "line": 6,
+            "column": 38,
+            "endLine": 6,
+            "endColumn": 39
+          }
+        },
+        "duration": {
+          "numerator": 2,
+          "denominator": 1,
+          "span": {
+            "line": 6,
+            "column": 39,
+            "endLine": 6,
+            "endColumn": 41
+          }
+        },
+        "span": {
+          "line": 6,
+          "column": 38,
+          "endLine": 6,
+          "endColumn": 41
+        }
+      },
+      {
+        "kind": "rest",
+        "duration": {
+          "numerator": 2,
+          "denominator": 1,
+          "span": {
+            "line": 6,
+            "column": 43,
+            "endLine": 6,
+            "endColumn": 45
+          }
+        },
+        "span": {
+          "line": 6,
+          "column": 42,
+          "endLine": 6,
+          "endColumn": 45
+        }
+      }
+    ],
+    "directives": [
+      {
+        "name": "title",
+        "span": {
+          "line": 1,
+          "column": 1,
+          "endLine": 1,
+          "endColumn": 25
+        }
+      },
+      {
+        "name": "focus",
+        "span": {
+          "line": 2,
+          "column": 1,
+          "endLine": 2,
+          "endColumn": 17
+        }
+      },
+      {
+        "name": "level",
+        "span": {
+          "line": 3,
+          "column": 1,
+          "endLine": 3,
+          "endColumn": 18
+        }
+      },
+      {
+        "name": "defaults",
+        "span": {
+          "line": 4,
+          "column": 1,
+          "endLine": 4,
+          "endColumn": 56
+        }
+      },
+      {
+        "name": "cue",
+        "span": {
+          "line": 5,
+          "column": 1,
+          "endLine": 5,
+          "endColumn": 13
+        }
+      }
+    ],
+    "cue": {
+      "kind": "chord",
+      "numeral": "I",
+      "degree": 1,
+      "quality": "",
+      "span": {
+        "line": 5,
+        "column": 7,
+        "endLine": 5,
+        "endColumn": 12
+      },
+      "duration": {
+        "numerator": 1,
+        "denominator": 1,
+        "span": {
+          "line": 5,
+          "column": 9,
+          "endLine": 5,
+          "endColumn": 11
+        }
+      }
+    }
+  },
+  "errors": []
+}
