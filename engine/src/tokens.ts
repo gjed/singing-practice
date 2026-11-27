@@ -51,7 +51,7 @@ export function parsePitch(s: string, start: number, line: number): { pitch: Pit
     p++;
   }
   const digits = p;
-  if (!isDigit(s.charAt(p))) throw new Fail("unexpected-character", p + 1, `expected a degree, found ${describe(s.charAt(p))}`);
+  if (!isDigit(s.charAt(p))) throw new Fail("invalid-degree", p + 1, `expected a degree number, found ${describe(s.charAt(p))}`);
   while (isDigit(s.charAt(p))) p++;
   const text = s.slice(digits, p);
   const degree = Number(text);
