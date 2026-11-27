@@ -66,8 +66,10 @@ Strudel blocks are ever allowed, it is only in library files reviewed by PR.
 - Open PRs against `main`.
 
 Releases will be cut by **semantic-release** on push to `main`: `feat` is a
-minor release, `fix` a patch, `BREAKING CHANGE` a major, everything else no
-release. Commit types will drive published versions, so pick them accurately.
+minor release, `fix`, `perf` and reverts a patch, `BREAKING CHANGE` a major,
+everything else no release. These are the semantic-release defaults; once
+`.releaserc.json` lands it is authoritative. Commit types will drive published
+versions, so pick them accurately.
 
 Examples:
 

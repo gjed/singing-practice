@@ -51,8 +51,9 @@ files under `exercises/` for working examples.
 - Open PRs against `main`.
 
 Releases will be cut by semantic-release on `main`: `feat` is a minor release,
-`fix` a patch, `BREAKING CHANGE` a major, everything else none. Choose the
-commit type with that in mind.
+`fix`, `perf` and reverts a patch, `BREAKING CHANGE` a major, everything else
+none. These are the semantic-release defaults; once `.releaserc.json` lands it
+is authoritative. Choose the commit type with that in mind.
 
 ## Security
 
