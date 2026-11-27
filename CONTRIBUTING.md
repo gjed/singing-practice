@@ -33,7 +33,7 @@ files under `exercises/` for working examples.
 1. Write the metadata directives (`title`, `focus`, `level`, `technique`, and
    so on) and the pattern, following [docs/vex-format.md](docs/vex-format.md).
 1. Commit: `feat(exercises): add <exercise title>`.
-1. Open a PR that closes the issue it answers (see below).
+1. Open a PR (see below).
 
 ## Fixing an exercise
 
@@ -47,7 +47,8 @@ files under `exercises/` for working examples.
   `<type>(<scope>): <subject>`, with a scope from `engine`, `cli`, `site`,
   `exercises`, `ci`, `infra`, `api` or `docs`.
 - Keep commits atomic: one logical change each.
-- One issue per PR. Put `Closes #N` in the PR body.
+- A PR closes zero or more issues. Put `Closes #N` in the PR body for each
+  issue it closes, when there are any.
 - Open PRs against `main`.
 
 Releases will be cut by semantic-release on `main`: `feat` is a minor release,
@@ -62,5 +63,8 @@ Raw Strudel code is never accepted from share links or imported files, only
 
 ## License
 
-By contributing you agree that your contribution is licensed under
-[AGPL-3.0](LICENSE).
+The code is licensed under [AGPL-3.0](LICENSE). By contributing code, you
+agree that your contribution is licensed under it.
+
+The gjed branding under `brand/` is proprietary and is not covered by the
+AGPL, and contributing to this repo does not change that.

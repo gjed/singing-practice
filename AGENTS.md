@@ -46,6 +46,11 @@ Makefile  package.json  .releaserc.json  .renovaterc.json  AGENTS.md  CONTRIBUTI
 The file path minus extension is the exercise id (`range/major-arpeggio`),
 used in URLs. The prefix only orders exercises inside a category.
 
+## License
+
+The code is licensed under AGPL-3.0 (`LICENSE`). The gjed branding under
+`brand/` is proprietary and not covered by the AGPL.
+
 ## Security
 
 Raw Strudel is JavaScript and gets evaluated. It is **never** accepted from
@@ -61,8 +66,8 @@ Strudel blocks are ever allowed, it is only in library files reviewed by PR.
 - **Conventional Commits**: `<type>(<scope>): <subject>`. The scope is optional
   for repo-wide changes. Scopes are the ones used in issue titles:
   `engine`, `cli`, `site`, `exercises`, `ci`, `infra`, `api`, `docs`.
-- **One issue per PR.** The PR body says `Closes #N`, and the PR is assigned to
-  `gjed`.
+- A PR closes zero or more issues. Put `Closes #N` in the PR body for each
+  issue it closes, when there are any. Assign the PR to `gjed`.
 - Open PRs against `main`.
 
 Releases will be cut by **semantic-release** on push to `main`: `feat` is a
