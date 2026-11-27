@@ -1,0 +1,65 @@
+# Contributing
+
+How to add or fix a vocal exercise, and how PRs are handled in this repo.
+
+The engine, CLI and site are still being built, so for now there are no build,
+test or lint commands to run. Those are documented by the changes that
+introduce them.
+
+## Where exercises live
+
+Each exercise is one `.vex` file in a category folder:
+
+```text
+exercises/
+  <category>/
+    NN-exercise-slug.vex
+```
+
+- `<category>` is a kebab-case folder, such as `warm-up`, `range` or `agility`.
+- The two-digit prefix (`01-`, `02-`, …) sets the order inside the category.
+- The slug is kebab-case.
+- The file path minus the extension is the exercise id, for example
+  `range/major-arpeggio` for `exercises/range/01-major-arpeggio.vex`. The id is
+  used in URLs, so renaming a file changes its link.
+
+The `.vex` syntax (directives, scale-degree patterns, settings and parameters)
+is specified in [docs/vex-format.md](docs/vex-format.md). Look at the existing
+files under `exercises/` for working examples.
+
+## Adding an exercise
+
+1. Create `exercises/<category>/NN-exercise-slug.vex`.
+1. Write the metadata directives (`title`, `focus`, `level`, `technique`, and
+   so on) and the pattern, following [docs/vex-format.md](docs/vex-format.md).
+1. Commit: `feat(exercises): add <exercise title>`.
+1. Open a PR that closes the issue it answers (see below).
+
+## Fixing an exercise
+
+1. Edit the `.vex` file.
+1. Commit: `fix(exercises): <what was wrong>`.
+1. Open a PR.
+
+## Commits and pull requests
+
+- Use [Conventional Commits](https://www.conventionalcommits.org/):
+  `<type>(<scope>): <subject>`, with a scope from `engine`, `cli`, `site`,
+  `exercises`, `ci`, `infra`, `api` or `docs`.
+- Keep commits atomic: one logical change each.
+- One issue per PR. Put `Closes #N` in the PR body.
+- Open PRs against `main`.
+
+Releases will be cut by semantic-release on `main`: `feat` is a minor release,
+`fix` a patch, `BREAKING CHANGE` a major, everything else none. Choose the
+commit type with that in mind.
+
+## Security
+
+Raw Strudel code is never accepted from share links or imported files, only
+`.vex`. Do not propose changes that evaluate user-supplied Strudel.
+
+## License
+
+By contributing you agree that your contribution is licensed under
+[AGPL-3.0](LICENSE).
