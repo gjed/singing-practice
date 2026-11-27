@@ -747,6 +747,7 @@ function parsePatternLine(st: State, s: string, line: number): void {
       const chord = parseChord(s, i, s.length, line);
       end = chord.span.endColumn - 1;
       currentList(st).push(chord);
+      hasContent = true;
     } else if (c === "|") {
       countItem(st, line, i);
       end = i + 1;
