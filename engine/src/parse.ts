@@ -116,6 +116,8 @@ interface State {
   top: PatternItem[];
   block?: { node: Conditional; inElse: boolean };
   itemCount: number;
+  /** Index in the current pattern line of the item being read; where recovery restarts after an error. */
+  itemStart: number;
   overflowed: boolean;
   noteCount: number;
   bars: BarRecord[];
@@ -700,6 +702,7 @@ function parsePatternLine(st: State, s: string, line: number): void {
 
   let i = skipBlanks(s, 0);
   while (i < s.length) {
+    st.itemStart = i;
     const c = s.charAt(i);
     let end: number;
     let isBar = false;
@@ -838,10 +841,54 @@ function addError(st: State, code: ErrorCode, line: number, column: number, mess
   st.errors.push({ code, line, column, message });
 }
 
+/**
+ * After an error ends a pattern line, the `{if}`, `{else}` and `{end}` tokens in the rest of it (from the
+ * item that failed) still open and close the block, so one real error does not cause follow-on errors.
+ * Nothing is reported here: the line already has its error.
+ */
+function recoverConditionals(st: State, s: string, line: number): void {
+  const token = /\{[ \t]*(if|else|end)(?![a-z0-9-])[^}]*\}?/g;
+  token.lastIndex = st.itemStart;
+  for (let m = token.exec(s); m; m = token.exec(s)) {
+    const span = sp(line, m.index, m.index + m[0].length);
+    if (m[1] === "if") {
+      if (st.block) continue;
+      const node: Conditional = {
+        kind: "conditional",
+        param: "",
+        value: "",
+        paramSpan: span,
+        valueSpan: span,
+        then: [],
+        ifSpan: span,
+        endSpan: span,
+        span,
+      };
+      st.top.push(node);
+      st.block = { node, inElse: false };
+    } else if (m[1] === "else") {
+      if (st.block && !st.block.inElse) {
+        st.block.node.else = [];
+        st.block.inElse = true;
+      }
+    } else {
+      st.block = undefined;
+    }
+  }
+}
+
 function processLine(st: State, s: string, line: number): void {
   const kind = classify(s);
   if (kind === "blank") return;
-  if (kind === "pattern") return parsePatternLine(st, s, line);
+  if (kind === "pattern") {
+    try {
+      parsePatternLine(st, s, line);
+    } catch (e) {
+      if (e instanceof Fail) recoverConditionals(st, s, line);
+      throw e;
+    }
+    return;
+  }
   const brace = skipBlanks(s, 0);
   if (st.block) throw new Fail("directive-in-conditional", brace + 1, "a directive line cannot sit inside an {if} block");
   parseDirective(st, s, line, brace);
@@ -945,6 +992,7 @@ export function parse(source: string): ParseResult {
     params: [],
     top: [],
     itemCount: 0,
+    itemStart: 0,
     overflowed: false,
     noteCount: 0,
     bars: [],

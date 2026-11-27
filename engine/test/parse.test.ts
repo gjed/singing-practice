@@ -451,6 +451,15 @@ describe("syntax errors: blocks and recovery", () => {
     ]);
   });
 
+  it("keeps applying {if}, {else} and {end} after an error on the same line", () => {
+    expect(errorsOf(withHeader("{if a=x} 1 q {end}\n{vowel: ah}\n"))).toEqual(["unexpected-character 2:12"]);
+    expect(errorsOf(withHeader("{if a>x} 1 {end}\n{vowel: ah}\n"))).toEqual(["invalid-conditional 2:6"]);
+    expect(errorsOf(withHeader("{if a=x}1 {else} 2 {end}\n"))).toEqual(["expected-blank 2:9"]);
+    expect(errorsOf(withHeader("{if a=x} 1 q {else} 2 {end}\n{vowel: ah}\n"))).toEqual(["unexpected-character 2:12"]);
+    expect(errorsOf(withHeader("{if a=x} 1 {end} q {if b=1} 2 {end}\n"))).toEqual(["unexpected-character 2:18"]);
+    expect(errorsOf(withHeader("1 q {end}\n"))).toEqual(["unexpected-character 2:3"]);
+  });
+
   it("does not repeat an unclosed {if} on a line that already has an error", () => {
     expect(errorsOf("{if a=1} 1 x\n2")).toEqual(["unexpected-character 1:12"]);
   });
