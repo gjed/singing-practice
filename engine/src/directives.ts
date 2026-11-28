@@ -2,6 +2,7 @@ import type { Chord, DefaultPair, DirectiveNode, Param } from "./ast.js";
 import { describe, isBlank, isDigit, isLower, isNameChar, isWordChar, skipBlanks, sp } from "./lex.js";
 import { Fail, type State } from "./state.js";
 import { MAX_SYLLABLE, parseChord, readSyllable } from "./tokens.js";
+import { VOICE_NAMES } from "./voices.js";
 
 const DIRECTIVES = new Set([
   "title",
@@ -20,7 +21,6 @@ const DIRECTIVES = new Set([
 const TRANSLATABLE = new Set(["title", "description"]);
 export const SETTINGS = new Set(["start", "end", "voice", "tempo", "step", "direction", "cue", "count-in"]);
 const SCALES = ["major", "minor", "harmonic-minor", "dorian"];
-const VOICES = ["soprano", "mezzo", "alto", "tenor", "baritone", "bass"];
 const DIRECTIONS = ["up", "down", "up-down", "down-up"];
 
 function parseTextValue(s: string, start: number, end: number): string {
@@ -138,7 +138,7 @@ function checkSetting(s: string, key: string, a: number, b: number): number | un
     case "end":
       return noteNameMidi(s, a, b);
     case "voice":
-      checkEnum(s, a, b, VOICES);
+      checkEnum(s, a, b, VOICE_NAMES);
       return undefined;
     case "direction":
       checkEnum(s, a, b, DIRECTIONS);
