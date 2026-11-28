@@ -1,0 +1,14 @@
+{
+  "name": "@singing-practice/cli",
+  "private": true,
+  "license": "AGPL-3.0-only",
+  "type": "module",
+  "dependencies": {
+    "@singing-practice/engine": "*",
+    "yaml": "^2.9.1"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  }
+}

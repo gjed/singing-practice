@@ -1,0 +1,8 @@
+title: Bad id
+title.it: Id sbagliato
+items:
+  - range/clean
+  - range/missing
+  - id: warm-up/gone
+    tempo: 90
+  - pause: 20s

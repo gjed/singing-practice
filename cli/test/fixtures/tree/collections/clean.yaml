@@ -1,0 +1,10 @@
+title: Clean collection
+title.it: Collezione pulita
+description: Every id exists
+description.it: Ogni id esiste
+level: beginner
+items:
+  - range/clean
+  - id: range/no-italian
+    tempo: 90
+  - pause: 20s

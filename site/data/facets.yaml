@@ -1,0 +1,83 @@
+# The facet vocabulary: the values `{focus}`, `{technique}`, `{level}` and `{voice}` may take.
+# `vex lint` rejects any value that is not listed here. Every value needs a label for each language in
+# languages.yaml. The key is the value as written in a .vex file.
+
+focus:
+  warm-up:
+    en: Warm-up
+    it: Riscaldamento
+  range:
+    en: Range
+    it: Estensione
+  agility:
+    en: Agility
+    it: Agilità
+  intervals:
+    en: Intervals
+    it: Intervalli
+  breath:
+    en: Breath
+    it: Respiro
+  resonance:
+    en: Resonance
+    it: Risonanza
+  cool-down:
+    en: Cool-down
+    it: Defaticamento
+
+technique:
+  lip trill:
+    en: Lip trill
+    it: Trillo labiale
+  hum:
+    en: Hum
+    it: Bocca chiusa
+  siren:
+    en: Siren
+    it: Sirena
+  staccato:
+    en: Staccato
+    it: Staccato
+  legato:
+    en: Legato
+    it: Legato
+  vowel shaping:
+    en: Vowel shaping
+    it: Modellare le vocali
+  glottal onset:
+    en: Glottal onset
+    it: Attacco glottale
+
+level:
+  beginner:
+    en: Beginner
+    it: Principiante
+  intermediate:
+    en: Intermediate
+    it: Intermedio
+  advanced:
+    en: Advanced
+    it: Avanzato
+
+voice:
+  any:
+    en: Any voice
+    it: Qualsiasi voce
+  soprano:
+    en: Soprano
+    it: Soprano
+  mezzo:
+    en: Mezzo-soprano
+    it: Mezzosoprano
+  alto:
+    en: Alto
+    it: Contralto
+  tenor:
+    en: Tenor
+    it: Tenore
+  baritone:
+    en: Baritone
+    it: Baritono
+  bass:
+    en: Bass
+    it: Basso

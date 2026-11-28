@@ -2,9 +2,28 @@
 
 How to add or fix a vocal exercise, and how PRs are handled in this repo.
 
-The engine, CLI and site are still being built, so for now there are no build,
-test or lint commands to run. Those are documented by the changes that
-introduce them.
+The engine, CLI and site are still being built, so `make lint` is the only
+command to run before you open a PR. Other commands are documented by the
+changes that introduce them.
+
+## Checking your changes
+
+`make lint` checks every exercise and collection. It needs Node 24 or later and
+installs the npm dependencies the first time.
+
+```sh
+make lint FILES="exercises/range/01-major-arpeggio.vex collections/daily-warm-up.yaml"
+make lint
+```
+
+The first form checks only the files you name. The full run currently fails on
+two ids in `collections/daily-warm-up.yaml` that have no exercise yet
+(`warm-up/lip-trill` and `breath/long-tone`); ignore those until the exercises
+land. Each problem is one line, `file:line:column: error: message` or
+`file:line:column: warning: message`. The command fails when there is any error. Warnings, such as a missing Italian
+title, do not fail it, but fix them where you can. The facet values it accepts
+are listed in `site/data/facets.yaml` and the languages in
+`site/data/languages.yaml`.
 
 ## Where exercises live
 
