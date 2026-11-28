@@ -1,0 +1,5 @@
+# The languages the site ships. `vex lint` rejects a translation (`{title.xx: …}`) in any other
+# language and warns when an exercise or collection has no translation in one of these. English is the
+# plain directive, so it never appears as a `.en` suffix. Keep this list in step with site/i18n/*.toml.
+- en
+- it

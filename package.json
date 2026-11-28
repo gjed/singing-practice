@@ -7,14 +7,17 @@
     "node": ">=24"
   },
   "workspaces": [
-    "engine"
+    "engine",
+    "cli"
   ],
   "scripts": {
     "test": "npm run test --workspaces --if-present",
-    "typecheck": "npm run typecheck --workspaces --if-present"
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "vex": "tsx cli/vex.ts"
   },
   "devDependencies": {
     "@types/node": "^24.19.4",
+    "tsx": "^4.23.15",
     "typescript": "^7.0.2",
     "vitest": "^5.1.2"
   }

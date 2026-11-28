@@ -1,0 +1,10 @@
+focus:
+  warm-up: { en: Warm-up, it: Riscaldamento }
+  agility: { en: Agility, it: Agilità }
+  range: { en: Range, it: Estensione }
+technique:
+  legato: { en: Legato, it: Legato }
+level:
+  beginner: { en: Beginner, it: Principiante }
+voice:
+  any: { en: Any voice, it: Qualsiasi voce }

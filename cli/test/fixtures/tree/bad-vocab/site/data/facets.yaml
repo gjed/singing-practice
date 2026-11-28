@@ -1,0 +1,7 @@
+focus:
+  range: { en: Range }
+  warm-up: { en: Warm-up, it: Riscaldamento, fr: Échauffement }
+technique:
+  legato: { en: Legato, it: Legato }
+level:
+  beginner: { en: Beginner, it: Principiante }
