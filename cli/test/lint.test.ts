@@ -1,4 +1,5 @@
 import { spawnSync } from "node:child_process";
+import { cpSync, mkdirSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { describe, expect, it } from "vitest";
@@ -84,10 +85,16 @@ describe("vex lint", () => {
     ]);
   });
 
-  it("reports YAML syntax errors with their position", () => {
-    expect(vex(["lint", "collections/syntax-error.yaml"]).lines).toEqual([
-      "collections/syntax-error.yaml:4:1: error: All mapping items must start at the same column",
-    ]);
+  it("reports YAML errors with their position", () => {
+    // Written at run time: a committed file with a YAML error would fail the repository's check-yaml hook.
+    const root = path.join(here, ".tmp-scratch");
+    mkdirSync(path.join(root, "collections"), { recursive: true });
+    cpSync(path.join(tree, "site"), path.join(root, "site"), { recursive: true });
+    writeFileSync(path.join(root, "collections/bad-indent.yaml"), "title: Bad indent\nitems:\n  - range/clean\n bad: indent\n");
+    expect(vex(["lint", "collections/bad-indent.yaml"], root)).toMatchObject({
+      lines: ["collections/bad-indent.yaml:4:1: error: All mapping items must start at the same column"],
+      code: 1,
+    });
   });
 
   it("lints every exercise and collection when given no paths", () => {
@@ -106,7 +113,6 @@ describe("vex lint", () => {
         "exercises/warm-up/02-no-focus.vex",
         "collections/bad-facet-and-language.yaml",
         "collections/bad-id.yaml",
-        "collections/syntax-error.yaml",
       ]),
     );
     expect(result.code).toBe(1);
@@ -134,6 +140,7 @@ describe("vex lint", () => {
     expect(vex([]).code).toBe(2);
     expect(vex(["build"]).code).toBe(2);
     expect(vex(["lint", "--fix"]).code).toBe(2);
+    expect(vex(["lint", "--root"]).code).toBe(2);
   });
 });
 
@@ -142,16 +149,26 @@ describe("the vex executable", () => {
   const exec = (...args: string[]) => spawnSync(tsx, [path.join(repo, "cli/vex.ts"), ...args], { cwd: repo, encoding: "utf8" });
 
   it("exits 1 with errors on stdout", () => {
-    const result = exec("lint", "cli/test/fixtures/tree/exercises/range/05-parse-error.vex");
-    expect(result.stdout).toBe("cli/test/fixtures/tree/exercises/range/05-parse-error.vex:4:7: error: a degree is 1 to 10 without leading zeros\n");
+    const result = exec("lint", "--root", tree, path.join(tree, "exercises/range/05-parse-error.vex"));
+    expect(result.stdout).toBe("exercises/range/05-parse-error.vex:4:7: error: a degree is 1 to 10 without leading zeros\n");
     expect(result.status).toBe(1);
   });
 
   it("exits 0 when there are only warnings", () => {
-    const result = exec("lint", "exercises/range/02-octave-jump.vex");
+    const result = exec("lint", "--root", tree, path.join(tree, "exercises/range/02-no-italian.vex"));
     expect(result.stdout).toBe(
-      "exercises/range/02-octave-jump.vex:1:1: warning: missing title.it translation, the site falls back to English\n",
+      [
+        "exercises/range/02-no-italian.vex:1:1: warning: missing title.it translation, the site falls back to English",
+        "exercises/range/02-no-italian.vex:2:1: warning: missing description.it translation, the site falls back to English",
+        "",
+      ].join("\n"),
     );
+    expect(result.status).toBe(0);
+  });
+
+  it("skips a .vex file outside exercises/, such as these fixtures when linting the repository", () => {
+    const result = exec("lint", "cli/test/fixtures/tree/exercises/range/05-parse-error.vex");
+    expect(result.stdout).toBe("");
     expect(result.status).toBe(0);
   });
 });

@@ -375,7 +375,7 @@ function discover(root: string): Target[] {
   ];
 }
 
-/** Resolves the files to lint. A path that is neither a `.vex` file nor a collection file is skipped. */
+/** Resolves the files to lint. A path that is neither under `exercises/` nor a collection file is skipped. */
 function select(options: LintOptions, findings: Finding[]): Target[] {
   const { root, paths } = options;
   if (paths === undefined || paths.length === 0) return discover(root);
@@ -386,7 +386,7 @@ function select(options: LintOptions, findings: Finding[]): Target[] {
     const file = toPosix(path.relative(root, absolute));
     if (!existsSync(absolute) || !statSync(absolute).isFile()) {
       findings.push({ file: toPosix(given), line: 1, column: 1, severity: "error", message: "not a file" });
-    } else if (file.endsWith(".vex")) {
+    } else if (/^exercises\/.+\.vex$/.test(file)) {
       targets.push({ file, kind: "exercise" });
     } else if (/^collections\/[^/]+\.ya?ml$/.test(file)) {
       targets.push({ file, kind: "collection" });
