@@ -1,0 +1,139 @@
+{
+  "settings": {
+    "start": 47,
+    "end": 67,
+    "tempo": 100,
+    "step": 3,
+    "direction": "up",
+    "cue": true,
+    "countIn": 0,
+    "params": {}
+  },
+  "events": [
+    {
+      "kind": "chord",
+      "time": 0,
+      "duration": 1,
+      "midi": [
+        47,
+        51,
+        54
+      ],
+      "repetition": 0
+    },
+    {
+      "kind": "note",
+      "time": 1,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 47
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 54
+    },
+    {
+      "kind": "chord",
+      "time": 3,
+      "duration": 1,
+      "midi": [
+        50,
+        54,
+        57
+      ],
+      "repetition": 1
+    },
+    {
+      "kind": "note",
+      "time": 4,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 50
+    },
+    {
+      "kind": "note",
+      "time": 5,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 57
+    },
+    {
+      "kind": "chord",
+      "time": 6,
+      "duration": 1,
+      "midi": [
+        53,
+        57,
+        60
+      ],
+      "repetition": 2
+    },
+    {
+      "kind": "note",
+      "time": 7,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 53
+    },
+    {
+      "kind": "note",
+      "time": 8,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 60
+    },
+    {
+      "kind": "chord",
+      "time": 9,
+      "duration": 1,
+      "midi": [
+        56,
+        60,
+        63
+      ],
+      "repetition": 3
+    },
+    {
+      "kind": "note",
+      "time": 10,
+      "duration": 1,
+      "repetition": 3,
+      "midi": 56
+    },
+    {
+      "kind": "note",
+      "time": 11,
+      "duration": 1,
+      "repetition": 3,
+      "midi": 63
+    },
+    {
+      "kind": "chord",
+      "time": 12,
+      "duration": 1,
+      "midi": [
+        59,
+        63,
+        66
+      ],
+      "repetition": 4
+    },
+    {
+      "kind": "note",
+      "time": 13,
+      "duration": 1,
+      "repetition": 4,
+      "midi": 59
+    },
+    {
+      "kind": "note",
+      "time": 14,
+      "duration": 1,
+      "repetition": 4,
+      "midi": 66
+    }
+  ]
+}

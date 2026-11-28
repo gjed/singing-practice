@@ -1,0 +1,202 @@
+{
+  "settings": {
+    "start": 48,
+    "end": 57,
+    "tempo": 100,
+    "step": 1,
+    "direction": "up",
+    "cue": true,
+    "countIn": 0,
+    "params": {
+      "scale": "major"
+    }
+  },
+  "events": [
+    {
+      "kind": "chord",
+      "time": 0,
+      "duration": 2,
+      "midi": [
+        48,
+        52,
+        55
+      ],
+      "repetition": 0
+    },
+    {
+      "kind": "chord",
+      "time": 2,
+      "duration": 8,
+      "repetition": 0,
+      "midi": [
+        48,
+        52,
+        55
+      ]
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 48,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 3,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 52,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 4,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 55,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 5,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 52,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 6,
+      "duration": 2,
+      "repetition": 0,
+      "midi": 48,
+      "syllable": "ah"
+    },
+    {
+      "kind": "chord",
+      "time": 10,
+      "duration": 2,
+      "midi": [
+        49,
+        53,
+        56
+      ],
+      "repetition": 1
+    },
+    {
+      "kind": "chord",
+      "time": 12,
+      "duration": 8,
+      "repetition": 1,
+      "midi": [
+        49,
+        53,
+        56
+      ]
+    },
+    {
+      "kind": "note",
+      "time": 12,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 49,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 13,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 53,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 14,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 56,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 15,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 53,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 16,
+      "duration": 2,
+      "repetition": 1,
+      "midi": 49,
+      "syllable": "ah"
+    },
+    {
+      "kind": "chord",
+      "time": 20,
+      "duration": 2,
+      "midi": [
+        50,
+        54,
+        57
+      ],
+      "repetition": 2
+    },
+    {
+      "kind": "chord",
+      "time": 22,
+      "duration": 8,
+      "repetition": 2,
+      "midi": [
+        50,
+        54,
+        57
+      ]
+    },
+    {
+      "kind": "note",
+      "time": 22,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 50,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 23,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 54,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 24,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 57,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 25,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 54,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 26,
+      "duration": 2,
+      "repetition": 2,
+      "midi": 50,
+      "syllable": "ah"
+    }
+  ]
+}

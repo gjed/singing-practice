@@ -23,13 +23,16 @@ export interface Discovery {
   orphanJson: string[];
 }
 
+/** A settings file next to a fixture (`<name>.settings.json`) is an input, not an expected output. */
+export const SETTINGS_SUFFIX = ".settings.json";
+
 /** Pairs `<name>.vex` with `<name>.json` in a list of posix paths relative to the fixtures directory. */
 export function pairFixtureFiles(paths: readonly string[], dir = ""): Discovery {
   const vex = new Set<string>();
   const json = new Set<string>();
   for (const path of paths) {
     if (path.endsWith(".vex")) vex.add(path.slice(0, -4));
-    else if (path.endsWith(".json")) json.add(path.slice(0, -5));
+    else if (path.endsWith(".json") && !path.endsWith(SETTINGS_SUFFIX)) json.add(path.slice(0, -5));
   }
   const fixtures = [...vex].sort().map((name) => ({
     name,

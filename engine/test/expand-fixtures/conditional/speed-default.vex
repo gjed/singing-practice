@@ -1,0 +1,4 @@
+{title: Speed default value}
+{param: speed = 1..3}
+{defaults: start=C3 end=E3 cue=off count-in=off speed=3}
+{if speed=3} 1 2 3 {else} 5 {end}

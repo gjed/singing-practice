@@ -45,6 +45,12 @@ describe("pairFixtureFiles", () => {
     expect(orphanJson).toEqual(["stale.json"]);
   });
 
+  it("does not take a .settings.json for an expected output", () => {
+    const { fixtures, orphanJson } = pairFixtureFiles(["a.vex", "a.json", "a.settings.json"]);
+    expect(fixtures.map((f) => f.name)).toEqual(["a"]);
+    expect(orphanJson).toEqual([]);
+  });
+
   it("finds nothing in an empty directory", () => {
     expect(pairFixtureFiles([])).toEqual({ fixtures: [], orphanJson: [] });
   });

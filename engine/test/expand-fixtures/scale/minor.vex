@@ -1,0 +1,4 @@
+{title: Degrees through a scale}
+{param: scale = major | minor | harmonic-minor | dorian}
+{cue: [V7]}
+1 2 3 4 5 6 7 8 9 10 b3 #4 5, 5' 1'' 3,,,

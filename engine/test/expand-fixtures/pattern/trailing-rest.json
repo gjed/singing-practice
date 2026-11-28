@@ -1,0 +1,68 @@
+{
+  "settings": {
+    "start": 48,
+    "end": 50,
+    "tempo": 100,
+    "step": 1,
+    "direction": "up",
+    "cue": true,
+    "countIn": 0,
+    "params": {}
+  },
+  "events": [
+    {
+      "kind": "chord",
+      "time": 0,
+      "duration": 2,
+      "midi": [
+        48,
+        52,
+        55
+      ],
+      "repetition": 0
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 48
+    },
+    {
+      "kind": "chord",
+      "time": 6,
+      "duration": 2,
+      "midi": [
+        49,
+        53,
+        56
+      ],
+      "repetition": 1
+    },
+    {
+      "kind": "note",
+      "time": 8,
+      "duration": 1,
+      "repetition": 1,
+      "midi": 49
+    },
+    {
+      "kind": "chord",
+      "time": 12,
+      "duration": 2,
+      "midi": [
+        50,
+        54,
+        57
+      ],
+      "repetition": 2
+    },
+    {
+      "kind": "note",
+      "time": 14,
+      "duration": 1,
+      "repetition": 2,
+      "midi": 50
+    }
+  ]
+}

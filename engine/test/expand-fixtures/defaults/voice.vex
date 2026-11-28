@@ -1,0 +1,4 @@
+{title: Voice in defaults}
+{defaults: voice=tenor step=+3 count-in=off}
+{cue: [I]}
+1 5

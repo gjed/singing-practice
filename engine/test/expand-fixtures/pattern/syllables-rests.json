@@ -1,0 +1,65 @@
+{
+  "settings": {
+    "start": 50,
+    "end": 62,
+    "tempo": 100,
+    "step": 1,
+    "direction": "up",
+    "cue": false,
+    "countIn": 0,
+    "params": {}
+  },
+  "events": [
+    {
+      "kind": "note",
+      "time": 0,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 50,
+      "syllable": "ma"
+    },
+    {
+      "kind": "note",
+      "time": 1,
+      "duration": 0.5,
+      "repetition": 0,
+      "midi": 52,
+      "syllable": "me"
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 54,
+      "syllable": "ah"
+    },
+    {
+      "kind": "note",
+      "time": 4.5,
+      "duration": 2,
+      "repetition": 0,
+      "midi": 57,
+      "syllable": "ng"
+    },
+    {
+      "kind": "glide",
+      "time": 6.5,
+      "duration": 0.25,
+      "repetition": 0,
+      "midi": [
+        54,
+        57
+      ],
+      "syllable": "oo"
+    },
+    {
+      "kind": "note",
+      "time": 7,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 62,
+      "syllable": "ah"
+    }
+  ]
+}

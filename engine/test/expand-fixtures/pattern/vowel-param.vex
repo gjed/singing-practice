@@ -1,0 +1,4 @@
+{title: Vowel as a parameter}
+{param: vowel = ee | oh}
+{param: scale = major | minor}
+1/ma 3 5 r

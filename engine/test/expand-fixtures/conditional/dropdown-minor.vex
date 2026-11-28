@@ -1,0 +1,5 @@
+{title: Dropdown branches}
+{param: scale = major | minor}
+{param: mood = bright | dark}
+{defaults: start=C3 end=G4 cue=off count-in=off}
+{if scale=minor} 1 b3 5 {end} 8:2 {if mood=dark} 5, {else} 5' {end}
