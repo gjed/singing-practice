@@ -12,13 +12,15 @@ changes that introduce them.
 installs the npm dependencies the first time.
 
 ```sh
-make lint
 make lint FILES="exercises/range/01-major-arpeggio.vex collections/daily-warm-up.yaml"
+make lint
 ```
 
-The second form checks only the files you name. Each problem is one line,
-`file:line:column: error: message` or `file:line:column: warning: message`.
-The command fails when there is any error. Warnings, such as a missing Italian
+The first form checks only the files you name. The full run currently fails on
+two ids in `collections/daily-warm-up.yaml` that have no exercise yet
+(`warm-up/lip-trill` and `breath/long-tone`); ignore those until the exercises
+land. Each problem is one line, `file:line:column: error: message` or
+`file:line:column: warning: message`. The command fails when there is any error. Warnings, such as a missing Italian
 title, do not fail it, but fix them where you can. The facet values it accepts
 are listed in `site/data/facets.yaml` and the languages in
 `site/data/languages.yaml`.
