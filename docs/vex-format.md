@@ -242,6 +242,8 @@ A rule of thumb: if changing a value changes which exercise it is, it belongs in
 | `count-in`     | Clicks before the first cue                              | `off`, or `1bar` to `4bar`                              | `1bar`     |
 
 - A note name is a letter `A`–`G`, an optional `#` or `b`, an optional `-`, and one octave digit, in scientific pitch notation: `C4` is middle C, MIDI 60. The result must be MIDI 0 to 127.
+- `end` also caps what the singer sings: a run leaves out every root whose highest sung note would pass `end`. Accompaniment chords are not sung and do not count, and notes below `start` are not checked. A root is also left out when any of its notes, accompaniment included, would fall outside MIDI 0 to 127.
+- `direction` orders the roots, which run from `start` upward by `step`. `up-down` and `down-up` turn without repeating the root at the turn: `C D E D C`.
 - `step` is always positive. The `direction` setting decides which way the roots run.
 - A bar for `count-in` is `{meter}` beats, or 4 beats without `{meter}`. The panel shows `1bar` as "1 bar".
 - `voice` and `cue` here are settings. They are not the `voice` facet directive and the `{cue}` directive, which are separate things.

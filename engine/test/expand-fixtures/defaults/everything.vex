@@ -1,0 +1,5 @@
+{title: Every setting in defaults}
+{param: scale = major | minor}
+{defaults: start=A2 end=E4 tempo=120 step=+5 direction=down-up cue=off count-in=2bar scale=minor}
+{meter: 2}
+1 b3 | 5 r

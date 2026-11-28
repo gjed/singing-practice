@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "start": 48,
+    "end": 67,
+    "tempo": 100,
+    "step": 1,
+    "direction": "up",
+    "cue": false,
+    "countIn": 0,
+    "params": {
+      "scale": "major",
+      "mood": "bright"
+    }
+  },
+  "events": [
+    {
+      "kind": "note",
+      "time": 0,
+      "duration": 2,
+      "repetition": 0,
+      "midi": 60
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 67
+    }
+  ]
+}

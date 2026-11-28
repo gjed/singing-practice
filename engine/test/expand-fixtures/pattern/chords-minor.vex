@@ -1,0 +1,4 @@
+{title: Chords in the minor scale}
+{param: scale = major | minor}
+{cue: [i]}
+[iv] 1 [V7] 5 [III] 3

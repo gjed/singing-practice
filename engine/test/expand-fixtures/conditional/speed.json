@@ -1,0 +1,79 @@
+{
+  "settings": {
+    "start": 48,
+    "end": 55,
+    "tempo": 100,
+    "step": 1,
+    "direction": "up",
+    "cue": false,
+    "countIn": 0,
+    "params": {
+      "speed": "3"
+    }
+  },
+  "events": [
+    {
+      "kind": "note",
+      "time": 0,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 48
+    },
+    {
+      "kind": "note",
+      "time": 1,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 50
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 52
+    },
+    {
+      "kind": "note",
+      "time": 3,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 53
+    },
+    {
+      "kind": "note",
+      "time": 4,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 55
+    },
+    {
+      "kind": "note",
+      "time": 5,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 53
+    },
+    {
+      "kind": "note",
+      "time": 6,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 52
+    },
+    {
+      "kind": "note",
+      "time": 7,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 50
+    },
+    {
+      "kind": "note",
+      "time": 8,
+      "duration": 2,
+      "repetition": 0,
+      "midi": 48
+    }
+  ]
+}

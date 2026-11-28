@@ -1,0 +1,146 @@
+{
+  "settings": {
+    "start": 48,
+    "end": 64,
+    "tempo": 60,
+    "step": 2,
+    "direction": "up",
+    "cue": true,
+    "countIn": 0,
+    "params": {}
+  },
+  "events": [
+    {
+      "kind": "chord",
+      "time": 0,
+      "duration": 2,
+      "midi": [
+        48,
+        52,
+        55
+      ],
+      "repetition": 0
+    },
+    {
+      "kind": "chord",
+      "time": 2,
+      "duration": 12,
+      "repetition": 0,
+      "midi": [
+        48,
+        52,
+        55
+      ]
+    },
+    {
+      "kind": "glide",
+      "time": 2,
+      "duration": 4,
+      "repetition": 0,
+      "midi": [
+        48,
+        60
+      ],
+      "syllable": "ng"
+    },
+    {
+      "kind": "glide",
+      "time": 6,
+      "duration": 4,
+      "repetition": 0,
+      "midi": [
+        60,
+        48
+      ],
+      "syllable": "ng"
+    },
+    {
+      "kind": "chord",
+      "time": 14,
+      "duration": 2,
+      "midi": [
+        50,
+        54,
+        57
+      ],
+      "repetition": 1
+    },
+    {
+      "kind": "chord",
+      "time": 16,
+      "duration": 12,
+      "repetition": 1,
+      "midi": [
+        50,
+        54,
+        57
+      ]
+    },
+    {
+      "kind": "glide",
+      "time": 16,
+      "duration": 4,
+      "repetition": 1,
+      "midi": [
+        50,
+        62
+      ],
+      "syllable": "ng"
+    },
+    {
+      "kind": "glide",
+      "time": 20,
+      "duration": 4,
+      "repetition": 1,
+      "midi": [
+        62,
+        50
+      ],
+      "syllable": "ng"
+    },
+    {
+      "kind": "chord",
+      "time": 28,
+      "duration": 2,
+      "midi": [
+        52,
+        56,
+        59
+      ],
+      "repetition": 2
+    },
+    {
+      "kind": "chord",
+      "time": 30,
+      "duration": 12,
+      "repetition": 2,
+      "midi": [
+        52,
+        56,
+        59
+      ]
+    },
+    {
+      "kind": "glide",
+      "time": 30,
+      "duration": 4,
+      "repetition": 2,
+      "midi": [
+        52,
+        64
+      ],
+      "syllable": "ng"
+    },
+    {
+      "kind": "glide",
+      "time": 34,
+      "duration": 4,
+      "repetition": 2,
+      "midi": [
+        64,
+        52
+      ],
+      "syllable": "ng"
+    }
+  ]
+}

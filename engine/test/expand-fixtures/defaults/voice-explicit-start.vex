@@ -1,0 +1,3 @@
+{title: Explicit start beats the voice}
+{defaults: voice=bass start=G2 step=+4 cue=off count-in=off}
+1 5

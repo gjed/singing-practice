@@ -1,0 +1,39 @@
+{
+  "settings": {
+    "start": 48,
+    "end": 52,
+    "tempo": 100,
+    "step": 1,
+    "direction": "up",
+    "cue": true,
+    "countIn": 0,
+    "params": {}
+  },
+  "events": [
+    {
+      "kind": "chord",
+      "time": 0,
+      "duration": 2,
+      "midi": [
+        48,
+        52,
+        55
+      ],
+      "repetition": 0
+    },
+    {
+      "kind": "note",
+      "time": 2,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 48
+    },
+    {
+      "kind": "note",
+      "time": 3,
+      "duration": 1,
+      "repetition": 0,
+      "midi": 52
+    }
+  ]
+}
